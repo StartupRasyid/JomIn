@@ -1,0 +1,38 @@
+# Node
+backend/node_modules/
+node_modules/
+*.tsbuildinfo
+
+# Flutter
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+
+# Build outputs
+build/
+**/build/
+
+# Android
+.gradle/
+**/.gradle/
+local.properties
+**/local.properties
+
+# iOS generated
+frontend/ios/Flutter/ephemeral/
+frontend/ios/Flutter/flutter_export_environment.sh
+frontend/ios/Flutter/Generated.xcconfig
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+.env
+*.env
+
+backend/dist/
+dist/

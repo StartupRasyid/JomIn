@@ -54,10 +54,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const Icon(
-                    Icons.person_add_alt_1_rounded,
-                    size: 65,
-                    color: Color(0xFF7C2140),
+                  Image.asset(
+                    'assets/images/JomIn_ExpandedLogo.png',
+                    width: 100,
+                    height: 100,
                   ),
 
                   const SizedBox(height: 20),

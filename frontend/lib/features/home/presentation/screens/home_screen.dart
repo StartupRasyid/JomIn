@@ -23,9 +23,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'JomIn',
-          style: TextStyle(fontWeight: FontWeight.bold),
+        title: Image.asset(
+          'assets/images/JomIn_ExpandedLogo.png',
+          height: 32,
         ),
         actions: [
           IconButton(

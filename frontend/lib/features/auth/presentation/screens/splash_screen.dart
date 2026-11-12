@@ -84,7 +84,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
               child: ScaleTransition(
                 scale: _scaleAnimation,
                 child: Image.asset(
-                  'assets/images/jomin_app_logo.png',
+                  'assets/images/JomIn_ExpandedLogo.png',
                   width: 150,
                   height: 150,
                 ),

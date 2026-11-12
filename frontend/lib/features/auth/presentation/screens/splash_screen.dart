@@ -64,7 +64,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
             data['database'] == 'connected';
 
         if (connected && mounted) {
-          context.go('/home');
+          context.go('/login');
         }
       });
     });

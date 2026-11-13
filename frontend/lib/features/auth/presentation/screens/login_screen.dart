@@ -191,6 +191,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                     child: const Text('Continue as Guest'),
                   ),
+
                 ],
               ),
             ),

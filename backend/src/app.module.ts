@@ -7,6 +7,7 @@ import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { PrismaModule } from './prisma/prisma.module.js';
 import { DatabaseController } from './database/database.controller.js';
+import { AuthModule } from './auth/auth.module.js';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { DatabaseController } from './database/database.controller.js';
       isGlobal: true,
     }),
     PrismaModule,
+    AuthModule,
     ThrottlerModule.forRoot([
       {
         ttl: 60000,

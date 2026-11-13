@@ -17,4 +17,79 @@ import * as Prisma from './internal/prismaNamespaceBrowser.js'
 export { Prisma }
 export * as $Enums from './enums.js'
 export * from './enums.js';
-
+/**
+ * Model ai_chat_messages
+ * This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+ * This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+ */
+export type ai_chat_messages = Prisma.ai_chat_messagesModel
+/**
+ * Model ai_chat_sessions
+ * This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+ */
+export type ai_chat_sessions = Prisma.ai_chat_sessionsModel
+/**
+ * Model committee_applications
+ * This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+ */
+export type committee_applications = Prisma.committee_applicationsModel
+/**
+ * Model committee_openings
+ * This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+ */
+export type committee_openings = Prisma.committee_openingsModel
+/**
+ * Model event_analytics_logs
+ * This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+ */
+export type event_analytics_logs = Prisma.event_analytics_logsModel
+/**
+ * Model event_comments
+ * This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+ */
+export type event_comments = Prisma.event_commentsModel
+/**
+ * Model event_interests
+ * This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+ */
+export type event_interests = Prisma.event_interestsModel
+/**
+ * Model event_likes
+ * This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+ */
+export type event_likes = Prisma.event_likesModel
+/**
+ * Model event_stickers
+ * This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+ */
+export type event_stickers = Prisma.event_stickersModel
+/**
+ * Model event_wishlists
+ * This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+ */
+export type event_wishlists = Prisma.event_wishlistsModel
+/**
+ * Model events
+ * This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+ */
+export type events = Prisma.eventsModel
+/**
+ * Model interests
+ * This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+ */
+export type interests = Prisma.interestsModel
+/**
+ * Model student_interests
+ * This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+ */
+export type student_interests = Prisma.student_interestsModel
+/**
+ * Model student_profiles
+ * This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+ */
+export type student_profiles = Prisma.student_profilesModel
+/**
+ * Model users
+ * This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+ */
+export type users = Prisma.usersModel

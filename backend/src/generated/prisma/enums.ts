@@ -9,7 +9,61 @@
 * 🟢 You can import this file directly.
 */
 
+export const analytics_action = {
+  view: 'view',
+  like: 'like',
+  comment: 'comment',
+  save: 'save',
+  share: 'share',
+  sticker_click: 'sticker_click'
+} as const
+
+export type analytics_action = (typeof analytics_action)[keyof typeof analytics_action]
 
 
-// This file is empty because there are no enums in the schema.
-export {}
+export const application_status = {
+  pending: 'pending',
+  accepted: 'accepted',
+  rejected: 'rejected'
+} as const
+
+export type application_status = (typeof application_status)[keyof typeof application_status]
+
+
+export const committee_unit = {
+  Activity: 'Activity',
+  Multimedia: 'Multimedia',
+  Food: 'Food',
+  Technical: 'Technical',
+  Protocol: 'Protocol',
+  Sponsorship: 'Sponsorship'
+} as const
+
+export type committee_unit = (typeof committee_unit)[keyof typeof committee_unit]
+
+
+export const media_type_enum = {
+  image: 'image',
+  video: 'video'
+} as const
+
+export type media_type_enum = (typeof media_type_enum)[keyof typeof media_type_enum]
+
+
+export const sticker_type = {
+  registration_link: 'registration_link',
+  speaker_bio: 'speaker_bio',
+  product_link: 'product_link',
+  info_popup: 'info_popup'
+} as const
+
+export type sticker_type = (typeof sticker_type)[keyof typeof sticker_type]
+
+
+export const user_role = {
+  student: 'student',
+  organizer: 'organizer',
+  admin: 'admin'
+} as const
+
+export type user_role = (typeof user_role)[keyof typeof user_role]

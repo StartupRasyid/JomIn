@@ -8,4 +8,19 @@
  *
  * 🟢 You can import this file directly.
  */
+export type * from './models/ai_chat_messages.js'
+export type * from './models/ai_chat_sessions.js'
+export type * from './models/committee_applications.js'
+export type * from './models/committee_openings.js'
+export type * from './models/event_analytics_logs.js'
+export type * from './models/event_comments.js'
+export type * from './models/event_interests.js'
+export type * from './models/event_likes.js'
+export type * from './models/event_stickers.js'
+export type * from './models/event_wishlists.js'
+export type * from './models/events.js'
+export type * from './models/interests.js'
+export type * from './models/student_interests.js'
+export type * from './models/student_profiles.js'
+export type * from './models/users.js'
 export type * from './commonInputTypes.js'

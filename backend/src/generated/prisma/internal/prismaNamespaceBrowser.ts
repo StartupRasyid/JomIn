@@ -51,7 +51,21 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-
+  ai_chat_messages: 'ai_chat_messages',
+  ai_chat_sessions: 'ai_chat_sessions',
+  committee_applications: 'committee_applications',
+  committee_openings: 'committee_openings',
+  event_analytics_logs: 'event_analytics_logs',
+  event_comments: 'event_comments',
+  event_interests: 'event_interests',
+  event_likes: 'event_likes',
+  event_stickers: 'event_stickers',
+  event_wishlists: 'event_wishlists',
+  events: 'events',
+  interests: 'interests',
+  student_interests: 'student_interests',
+  student_profiles: 'student_profiles',
+  users: 'users'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -68,4 +82,199 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 } as const)
 
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+export const Ai_chat_messagesScalarFieldEnum = {
+  message_id: 'message_id',
+  session_id: 'session_id',
+  sender: 'sender',
+  message_text: 'message_text',
+  recommended_event_ids: 'recommended_event_ids',
+  recommended_units: 'recommended_units',
+  timestamp: 'timestamp'
+} as const
+
+export type Ai_chat_messagesScalarFieldEnum = (typeof Ai_chat_messagesScalarFieldEnum)[keyof typeof Ai_chat_messagesScalarFieldEnum]
+
+
+export const Ai_chat_sessionsScalarFieldEnum = {
+  session_id: 'session_id',
+  user_id: 'user_id',
+  started_at: 'started_at',
+  ended_at: 'ended_at'
+} as const
+
+export type Ai_chat_sessionsScalarFieldEnum = (typeof Ai_chat_sessionsScalarFieldEnum)[keyof typeof Ai_chat_sessionsScalarFieldEnum]
+
+
+export const Committee_applicationsScalarFieldEnum = {
+  application_id: 'application_id',
+  opening_id: 'opening_id',
+  student_id: 'student_id',
+  status: 'status',
+  applied_at: 'applied_at'
+} as const
+
+export type Committee_applicationsScalarFieldEnum = (typeof Committee_applicationsScalarFieldEnum)[keyof typeof Committee_applicationsScalarFieldEnum]
+
+
+export const Committee_openingsScalarFieldEnum = {
+  opening_id: 'opening_id',
+  event_id: 'event_id',
+  unit_name: 'unit_name',
+  description: 'description',
+  slots_available: 'slots_available',
+  is_open: 'is_open',
+  created_at: 'created_at'
+} as const
+
+export type Committee_openingsScalarFieldEnum = (typeof Committee_openingsScalarFieldEnum)[keyof typeof Committee_openingsScalarFieldEnum]
+
+
+export const Event_analytics_logsScalarFieldEnum = {
+  log_id: 'log_id',
+  event_id: 'event_id',
+  user_id: 'user_id',
+  sticker_id: 'sticker_id',
+  action_type: 'action_type',
+  timestamp: 'timestamp'
+} as const
+
+export type Event_analytics_logsScalarFieldEnum = (typeof Event_analytics_logsScalarFieldEnum)[keyof typeof Event_analytics_logsScalarFieldEnum]
+
+
+export const Event_commentsScalarFieldEnum = {
+  comment_id: 'comment_id',
+  event_id: 'event_id',
+  user_id: 'user_id',
+  content: 'content',
+  created_at: 'created_at'
+} as const
+
+export type Event_commentsScalarFieldEnum = (typeof Event_commentsScalarFieldEnum)[keyof typeof Event_commentsScalarFieldEnum]
+
+
+export const Event_interestsScalarFieldEnum = {
+  event_id: 'event_id',
+  interest_id: 'interest_id'
+} as const
+
+export type Event_interestsScalarFieldEnum = (typeof Event_interestsScalarFieldEnum)[keyof typeof Event_interestsScalarFieldEnum]
+
+
+export const Event_likesScalarFieldEnum = {
+  user_id: 'user_id',
+  event_id: 'event_id',
+  created_at: 'created_at'
+} as const
+
+export type Event_likesScalarFieldEnum = (typeof Event_likesScalarFieldEnum)[keyof typeof Event_likesScalarFieldEnum]
+
+
+export const Event_stickersScalarFieldEnum = {
+  sticker_id: 'sticker_id',
+  event_id: 'event_id',
+  type: 'type',
+  label: 'label',
+  target_url: 'target_url',
+  popup_content: 'popup_content',
+  pos_x: 'pos_x',
+  pos_y: 'pos_y',
+  created_at: 'created_at'
+} as const
+
+export type Event_stickersScalarFieldEnum = (typeof Event_stickersScalarFieldEnum)[keyof typeof Event_stickersScalarFieldEnum]
+
+
+export const Event_wishlistsScalarFieldEnum = {
+  user_id: 'user_id',
+  event_id: 'event_id',
+  created_at: 'created_at'
+} as const
+
+export type Event_wishlistsScalarFieldEnum = (typeof Event_wishlistsScalarFieldEnum)[keyof typeof Event_wishlistsScalarFieldEnum]
+
+
+export const EventsScalarFieldEnum = {
+  event_id: 'event_id',
+  organizer_id: 'organizer_id',
+  title: 'title',
+  description: 'description',
+  media_url: 'media_url',
+  media_type: 'media_type',
+  template_id: 'template_id',
+  location: 'location',
+  start_time: 'start_time',
+  end_time: 'end_time',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type EventsScalarFieldEnum = (typeof EventsScalarFieldEnum)[keyof typeof EventsScalarFieldEnum]
+
+
+export const InterestsScalarFieldEnum = {
+  interest_id: 'interest_id',
+  name: 'name'
+} as const
+
+export type InterestsScalarFieldEnum = (typeof InterestsScalarFieldEnum)[keyof typeof InterestsScalarFieldEnum]
+
+
+export const Student_interestsScalarFieldEnum = {
+  user_id: 'user_id',
+  interest_id: 'interest_id'
+} as const
+
+export type Student_interestsScalarFieldEnum = (typeof Student_interestsScalarFieldEnum)[keyof typeof Student_interestsScalarFieldEnum]
+
+
+export const Student_profilesScalarFieldEnum = {
+  profile_id: 'profile_id',
+  user_id: 'user_id',
+  bio: 'bio',
+  personality_summary: 'personality_summary',
+  created_at: 'created_at'
+} as const
+
+export type Student_profilesScalarFieldEnum = (typeof Student_profilesScalarFieldEnum)[keyof typeof Student_profilesScalarFieldEnum]
+
+
+export const UsersScalarFieldEnum = {
+  user_id: 'user_id',
+  email: 'email',
+  password_hash: 'password_hash',
+  full_name: 'full_name',
+  role: 'role',
+  faculty: 'faculty',
+  year_of_study: 'year_of_study',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]
+
+
+export const SortOrder = {
+  asc: 'asc',
+  desc: 'desc'
+} as const
+
+export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
+} as const
+
+export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 

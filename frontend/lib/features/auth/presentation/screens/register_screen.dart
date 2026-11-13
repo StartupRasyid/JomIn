@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:dio/dio.dart';
+import 'package:frontend/core/api_client.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -19,6 +21,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
+  bool _isLoading = false;
 
   @override
   void dispose() {
@@ -29,14 +32,40 @@ class _RegisterScreenState extends State<RegisterScreen> {
     super.dispose();
   }
 
-  void _register() {
-    if (_formKey.currentState!.validate()) {
+  Future<void> _register() async {
+    if (!_formKey.currentState!.validate()) return;
+
+    setState(() => _isLoading = true);
+
+    try {
+      await dio.post('/auth/register', data: {
+        'fullName': _nameController.text.trim(),
+        'email': _emailController.text.trim(),
+        'password': _passwordController.text,
+      });
+
+      if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Registration API is not connected yet.'),
-        ),
+        const SnackBar(content: Text('Account created! Please log in.')),
       );
+      context.go('/login');
+    } on DioException catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(_errorMessage(e))),
+      );
+    } finally {
+      if (mounted) setState(() => _isLoading = false);
     }
+  }
+
+  String _errorMessage(DioException e) {
+    final status = e.response?.statusCode;
+    if (status == 409) return 'An account with this email already exists.';
+    if (status == 400) return 'Please check your details and try again.';
+    if (status == 429) return 'Too many attempts. Please wait a minute.';
+    if (e.response == null) return 'Cannot reach the server. Is the backend running?';
+    return 'Something went wrong. Please try again.';
   }
 
   @override
@@ -200,9 +229,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   SizedBox(
                     height: 52,
                     child: ElevatedButton(
-                      onPressed: _register,
-                      child: const Text(
-                        'Create Account',
+                      onPressed: _isLoading ? null : _register,
+                      child: _isLoading
+                          ? const SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: CircularProgressIndicator(strokeWidth: 2),
+                            )
+                          : const Text(
+                              'Create Account',
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,

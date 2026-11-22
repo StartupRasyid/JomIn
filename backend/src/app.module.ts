@@ -9,12 +9,14 @@ import { PrismaModule } from './prisma/prisma.module.js';
 import { DatabaseController } from './database/database.controller.js';
 import { AuthModule } from './auth/auth.module.js';
 import { CommonModule } from './common/common.module.js';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    ScheduleModule.forRoot(),
     CommonModule,
     PrismaModule,
     AuthModule,

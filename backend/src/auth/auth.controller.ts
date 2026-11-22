@@ -1,7 +1,7 @@
 
 import { Body, Controller, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-
+import { Throttle } from '@nestjs/throttler';
 import { AuthService } from './auth.service.js';
 import { RegisterDto } from './dto/register.dto.js';
 import { VerifyEmailDto } from './dto/verify-email.dto.js';
@@ -23,7 +23,8 @@ export class AuthController {
   }
 
   @Post('resend-verification')
+  @Throttle({ default: { limit: 3, ttl: 60000 } })
   resendVerification(@Body() dto: ResendVerificationDto) {
     return this.authService.resendVerificationEmail(dto.email);
-  }
+}
 }

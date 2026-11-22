@@ -36,24 +36,44 @@ export class AuthService {
     });
 
     if (existing) {
-      throw new ConflictException(
-        'An account with this email already exists.',
-      );
+      return {
+        message:
+          'If registration is possible, please check your email for further instructions.',
+      };
     }
 
     // Hash the user's password
     const passwordHash = await bcrypt.hash(dto.password, 10);
 
     // Create the user account
-    const user = await this.prisma.users.create({
-      data: {
-        email,
-        password_hash: passwordHash,
-        full_name: dto.fullName.trim(),
-        faculty: dto.faculty,
-        year_of_study: dto.yearOfStudy,
-      },
-    });
+    let user;
+
+    try {
+      user = await this.prisma.users.create({
+        data: {
+          email,
+          password_hash: passwordHash,
+          full_name: dto.fullName.trim(),
+          faculty: dto.faculty,
+          year_of_study: dto.yearOfStudy,
+        },
+      });
+    } catch (error) {
+      // Handle simultaneous registration attempts for the same email
+      if (
+        typeof error === 'object' &&
+        error !== null &&
+        'code' in error &&
+        error.code === 'P2002'
+      ) {
+        return {
+          message:
+            'If registration is possible, please check your email for further instructions.',
+        };
+      }
+
+      throw error;
+    }
 
     // Generate verification token
     const { token, tokenHash } = this.generateVerificationToken();
@@ -76,8 +96,7 @@ export class AuthService {
     // Return registration response
     return {
       message:
-        'Registration successful. Please check your email to verify your account.',
-      email: user.email,
+        'If registration is possible, please check your email for further instructions.',
     };
   }
   // Verify user's email address
@@ -127,51 +146,56 @@ export class AuthService {
     };
   }
   // Resend email verification link
-async resendVerificationEmail(emailInput: string) {
-  const email = emailInput.trim().toLowerCase();
+  async resendVerificationEmail(emailInput: string) {
+    const email = emailInput.trim().toLowerCase();
 
-  // Find the registered user
-  const user = await this.prisma.users.findUnique({
-    where: { email },
-  });
+    // Find the registered user
+    const user = await this.prisma.users.findUnique({
+      where: { email },
+    });
 
-  if (!user) {
-    throw new NotFoundException('Account not found.');
-  }
+    // Return the same response if the account does not exist
+    if (!user) {
+      return {
+        message:
+          'If the account is eligible, a verification email will be sent.',
+      };
+    }
 
-  // Check whether the email is already verified
-  if (user.is_verified) {
-    throw new ConflictException(
-      'This email address has already been verified.',
-    );
-  }
+    // Return the same response if the email is already verified
+    if (user.is_verified) {
+      return {
+        message:
+          'If the account is eligible, a verification email will be sent.',
+      };
+    }
 
-  // Delete previous verification tokens
-  await this.prisma.email_verification_tokens.deleteMany({
-    where: { user_id: user.user_id },
-  });
+    // Delete previous verification tokens
+    await this.prisma.email_verification_tokens.deleteMany({
+      where: { user_id: user.user_id },
+    });
 
-  // Generate a new verification token
-  const { token, tokenHash } = this.generateVerificationToken();
+    // Generate a new verification token
+    const { token, tokenHash } = this.generateVerificationToken();
 
-  // Set expiration to 15 minutes
-  const expiresAt = new Date(Date.now() + 15 * 60 * 1000);
+    // Set expiration to 15 minutes
+    const expiresAt = new Date(Date.now() + 15 * 60 * 1000);
 
-  // Store the new token
-  await this.prisma.email_verification_tokens.create({
-    data: {
-      user_id: user.user_id,
-      token_hash: tokenHash,
-      expires_at: expiresAt,
-    },
-  });
+    // Store the new token
+    await this.prisma.email_verification_tokens.create({
+      data: {
+        user_id: user.user_id,
+        token_hash: tokenHash,
+        expires_at: expiresAt,
+      },
+    });
 
-  // Send the new verification email
-  await this.emailService.sendVerificationEmail(email, token);
+    // Send the new verification email
+    await this.emailService.sendVerificationEmail(email, token);
 
     return {
-      message: 'A new verification email has been sent.',
-      email: user.email,
+      message:
+        'If the account is eligible, a verification email will be sent.',
     };
   }
 }

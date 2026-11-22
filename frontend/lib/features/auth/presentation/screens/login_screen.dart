@@ -58,6 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if (status == 401) return 'Incorrect email or password.';
     if (status == 400) return 'Please check your details and try again.';
     if (status == 429) return 'Too many attempts. Please wait a minute.';
+    if (status == 403) return 'Please verify your email first.';
     if (e.response == null) return 'Cannot reach the server. Is the backend running?';
     return 'Something went wrong. Please try again.';
   }

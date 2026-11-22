@@ -1,8 +1,7 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import { ConflictException, Injectable, ForbiddenException, UnauthorizedException } from '@nestjs/common';
 import bcrypt from 'bcryptjs';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { RegisterDto } from './dto/register.dto.js';
-import { UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { LoginDto } from './dto/login.dto.js';
 
@@ -65,7 +64,9 @@ export class AuthService {
     if (!user || !passwordOk) {
       throw new UnauthorizedException('Invalid email or password.');
     }
-
+    if (!user.is_verified) {
+      throw new ForbiddenException('Please verify your email before logging in.');
+    }
     const accessToken = await this.jwtService.signAsync({
       sub: user.user_id,
       role: user.role,
@@ -79,6 +80,20 @@ export class AuthService {
         fullName: user.full_name,
         role: user.role,
       },
+    };
+  }
+
+  async getMe(userId: string) {
+    const user = await this.prisma.users.findUnique({ where: { user_id: userId } });
+    if (!user) throw new UnauthorizedException('Account no longer exists.');
+    return {
+      id: user.user_id,
+      email: user.email,
+      fullName: user.full_name,
+      role: user.role,
+      faculty: user.faculty,
+      yearOfStudy: user.year_of_study,
+      createdAt: user.created_at,
     };
   }
   

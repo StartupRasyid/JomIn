@@ -37,6 +37,7 @@ export type UsersSumAggregateOutputType = {
 export type UsersMinAggregateOutputType = {
   user_id: string | null
   email: string | null
+  is_verified: boolean | null
   password_hash: string | null
   full_name: string | null
   role: $Enums.user_role | null
@@ -49,6 +50,7 @@ export type UsersMinAggregateOutputType = {
 export type UsersMaxAggregateOutputType = {
   user_id: string | null
   email: string | null
+  is_verified: boolean | null
   password_hash: string | null
   full_name: string | null
   role: $Enums.user_role | null
@@ -61,6 +63,7 @@ export type UsersMaxAggregateOutputType = {
 export type UsersCountAggregateOutputType = {
   user_id: number
   email: number
+  is_verified: number
   password_hash: number
   full_name: number
   role: number
@@ -83,6 +86,7 @@ export type UsersSumAggregateInputType = {
 export type UsersMinAggregateInputType = {
   user_id?: true
   email?: true
+  is_verified?: true
   password_hash?: true
   full_name?: true
   role?: true
@@ -95,6 +99,7 @@ export type UsersMinAggregateInputType = {
 export type UsersMaxAggregateInputType = {
   user_id?: true
   email?: true
+  is_verified?: true
   password_hash?: true
   full_name?: true
   role?: true
@@ -107,6 +112,7 @@ export type UsersMaxAggregateInputType = {
 export type UsersCountAggregateInputType = {
   user_id?: true
   email?: true
+  is_verified?: true
   password_hash?: true
   full_name?: true
   role?: true
@@ -206,6 +212,7 @@ export type usersGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
 export type UsersGroupByOutputType = {
   user_id: string
   email: string
+  is_verified: boolean
   password_hash: string
   full_name: string
   role: $Enums.user_role | null
@@ -241,6 +248,7 @@ export type usersWhereInput = {
   NOT?: Prisma.usersWhereInput | Prisma.usersWhereInput[]
   user_id?: Prisma.UuidFilter<"users"> | string
   email?: Prisma.StringFilter<"users"> | string
+  is_verified?: Prisma.BoolFilter<"users"> | boolean
   password_hash?: Prisma.StringFilter<"users"> | string
   full_name?: Prisma.StringFilter<"users"> | string
   role?: Prisma.Enumuser_roleNullableFilter<"users"> | $Enums.user_role | null
@@ -257,11 +265,13 @@ export type usersWhereInput = {
   events?: Prisma.EventsListRelationFilter
   student_interests?: Prisma.Student_interestsListRelationFilter
   student_profiles?: Prisma.XOR<Prisma.Student_profilesNullableScalarRelationFilter, Prisma.student_profilesWhereInput> | null
+  email_verification_tokens?: Prisma.Email_verification_tokensListRelationFilter
 }
 
 export type usersOrderByWithRelationInput = {
   user_id?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  is_verified?: Prisma.SortOrder
   password_hash?: Prisma.SortOrder
   full_name?: Prisma.SortOrder
   role?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -278,6 +288,7 @@ export type usersOrderByWithRelationInput = {
   events?: Prisma.eventsOrderByRelationAggregateInput
   student_interests?: Prisma.student_interestsOrderByRelationAggregateInput
   student_profiles?: Prisma.student_profilesOrderByWithRelationInput
+  email_verification_tokens?: Prisma.email_verification_tokensOrderByRelationAggregateInput
 }
 
 export type usersWhereUniqueInput = Prisma.AtLeast<{
@@ -286,6 +297,7 @@ export type usersWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.usersWhereInput | Prisma.usersWhereInput[]
   OR?: Prisma.usersWhereInput[]
   NOT?: Prisma.usersWhereInput | Prisma.usersWhereInput[]
+  is_verified?: Prisma.BoolFilter<"users"> | boolean
   password_hash?: Prisma.StringFilter<"users"> | string
   full_name?: Prisma.StringFilter<"users"> | string
   role?: Prisma.Enumuser_roleNullableFilter<"users"> | $Enums.user_role | null
@@ -302,11 +314,13 @@ export type usersWhereUniqueInput = Prisma.AtLeast<{
   events?: Prisma.EventsListRelationFilter
   student_interests?: Prisma.Student_interestsListRelationFilter
   student_profiles?: Prisma.XOR<Prisma.Student_profilesNullableScalarRelationFilter, Prisma.student_profilesWhereInput> | null
+  email_verification_tokens?: Prisma.Email_verification_tokensListRelationFilter
 }, "user_id" | "email">
 
 export type usersOrderByWithAggregationInput = {
   user_id?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  is_verified?: Prisma.SortOrder
   password_hash?: Prisma.SortOrder
   full_name?: Prisma.SortOrder
   role?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -327,6 +341,7 @@ export type usersScalarWhereWithAggregatesInput = {
   NOT?: Prisma.usersScalarWhereWithAggregatesInput | Prisma.usersScalarWhereWithAggregatesInput[]
   user_id?: Prisma.UuidWithAggregatesFilter<"users"> | string
   email?: Prisma.StringWithAggregatesFilter<"users"> | string
+  is_verified?: Prisma.BoolWithAggregatesFilter<"users"> | boolean
   password_hash?: Prisma.StringWithAggregatesFilter<"users"> | string
   full_name?: Prisma.StringWithAggregatesFilter<"users"> | string
   role?: Prisma.Enumuser_roleNullableWithAggregatesFilter<"users"> | $Enums.user_role | null
@@ -339,6 +354,7 @@ export type usersScalarWhereWithAggregatesInput = {
 export type usersCreateInput = {
   user_id?: string
   email: string
+  is_verified?: boolean
   password_hash: string
   full_name: string
   role?: $Enums.user_role | null
@@ -355,11 +371,13 @@ export type usersCreateInput = {
   events?: Prisma.eventsCreateNestedManyWithoutUsersInput
   student_interests?: Prisma.student_interestsCreateNestedManyWithoutUsersInput
   student_profiles?: Prisma.student_profilesCreateNestedOneWithoutUsersInput
+  email_verification_tokens?: Prisma.email_verification_tokensCreateNestedManyWithoutUsersInput
 }
 
 export type usersUncheckedCreateInput = {
   user_id?: string
   email: string
+  is_verified?: boolean
   password_hash: string
   full_name: string
   role?: $Enums.user_role | null
@@ -376,11 +394,13 @@ export type usersUncheckedCreateInput = {
   events?: Prisma.eventsUncheckedCreateNestedManyWithoutUsersInput
   student_interests?: Prisma.student_interestsUncheckedCreateNestedManyWithoutUsersInput
   student_profiles?: Prisma.student_profilesUncheckedCreateNestedOneWithoutUsersInput
+  email_verification_tokens?: Prisma.email_verification_tokensUncheckedCreateNestedManyWithoutUsersInput
 }
 
 export type usersUpdateInput = {
   user_id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   full_name?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
@@ -397,11 +417,13 @@ export type usersUpdateInput = {
   events?: Prisma.eventsUpdateManyWithoutUsersNestedInput
   student_interests?: Prisma.student_interestsUpdateManyWithoutUsersNestedInput
   student_profiles?: Prisma.student_profilesUpdateOneWithoutUsersNestedInput
+  email_verification_tokens?: Prisma.email_verification_tokensUpdateManyWithoutUsersNestedInput
 }
 
 export type usersUncheckedUpdateInput = {
   user_id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   full_name?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
@@ -418,11 +440,13 @@ export type usersUncheckedUpdateInput = {
   events?: Prisma.eventsUncheckedUpdateManyWithoutUsersNestedInput
   student_interests?: Prisma.student_interestsUncheckedUpdateManyWithoutUsersNestedInput
   student_profiles?: Prisma.student_profilesUncheckedUpdateOneWithoutUsersNestedInput
+  email_verification_tokens?: Prisma.email_verification_tokensUncheckedUpdateManyWithoutUsersNestedInput
 }
 
 export type usersCreateManyInput = {
   user_id?: string
   email: string
+  is_verified?: boolean
   password_hash: string
   full_name: string
   role?: $Enums.user_role | null
@@ -435,6 +459,7 @@ export type usersCreateManyInput = {
 export type usersUpdateManyMutationInput = {
   user_id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   full_name?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
@@ -447,6 +472,7 @@ export type usersUpdateManyMutationInput = {
 export type usersUncheckedUpdateManyInput = {
   user_id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   full_name?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
@@ -469,6 +495,7 @@ export type UsersNullableScalarRelationFilter = {
 export type usersCountOrderByAggregateInput = {
   user_id?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  is_verified?: Prisma.SortOrder
   password_hash?: Prisma.SortOrder
   full_name?: Prisma.SortOrder
   role?: Prisma.SortOrder
@@ -485,6 +512,7 @@ export type usersAvgOrderByAggregateInput = {
 export type usersMaxOrderByAggregateInput = {
   user_id?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  is_verified?: Prisma.SortOrder
   password_hash?: Prisma.SortOrder
   full_name?: Prisma.SortOrder
   role?: Prisma.SortOrder
@@ -497,6 +525,7 @@ export type usersMaxOrderByAggregateInput = {
 export type usersMinOrderByAggregateInput = {
   user_id?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  is_verified?: Prisma.SortOrder
   password_hash?: Prisma.SortOrder
   full_name?: Prisma.SortOrder
   role?: Prisma.SortOrder
@@ -638,13 +667,32 @@ export type usersUpdateOneRequiredWithoutStudent_profilesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.usersUpdateToOneWithWhereWithoutStudent_profilesInput, Prisma.usersUpdateWithoutStudent_profilesInput>, Prisma.usersUncheckedUpdateWithoutStudent_profilesInput>
 }
 
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
+}
+
 export type NullableEnumuser_roleFieldUpdateOperationsInput = {
   set?: $Enums.user_role | null
+}
+
+export type usersCreateNestedOneWithoutEmail_verification_tokensInput = {
+  create?: Prisma.XOR<Prisma.usersCreateWithoutEmail_verification_tokensInput, Prisma.usersUncheckedCreateWithoutEmail_verification_tokensInput>
+  connectOrCreate?: Prisma.usersCreateOrConnectWithoutEmail_verification_tokensInput
+  connect?: Prisma.usersWhereUniqueInput
+}
+
+export type usersUpdateOneRequiredWithoutEmail_verification_tokensNestedInput = {
+  create?: Prisma.XOR<Prisma.usersCreateWithoutEmail_verification_tokensInput, Prisma.usersUncheckedCreateWithoutEmail_verification_tokensInput>
+  connectOrCreate?: Prisma.usersCreateOrConnectWithoutEmail_verification_tokensInput
+  upsert?: Prisma.usersUpsertWithoutEmail_verification_tokensInput
+  connect?: Prisma.usersWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.usersUpdateToOneWithWhereWithoutEmail_verification_tokensInput, Prisma.usersUpdateWithoutEmail_verification_tokensInput>, Prisma.usersUncheckedUpdateWithoutEmail_verification_tokensInput>
 }
 
 export type usersCreateWithoutAi_chat_sessionsInput = {
   user_id?: string
   email: string
+  is_verified?: boolean
   password_hash: string
   full_name: string
   role?: $Enums.user_role | null
@@ -660,11 +708,13 @@ export type usersCreateWithoutAi_chat_sessionsInput = {
   events?: Prisma.eventsCreateNestedManyWithoutUsersInput
   student_interests?: Prisma.student_interestsCreateNestedManyWithoutUsersInput
   student_profiles?: Prisma.student_profilesCreateNestedOneWithoutUsersInput
+  email_verification_tokens?: Prisma.email_verification_tokensCreateNestedManyWithoutUsersInput
 }
 
 export type usersUncheckedCreateWithoutAi_chat_sessionsInput = {
   user_id?: string
   email: string
+  is_verified?: boolean
   password_hash: string
   full_name: string
   role?: $Enums.user_role | null
@@ -680,6 +730,7 @@ export type usersUncheckedCreateWithoutAi_chat_sessionsInput = {
   events?: Prisma.eventsUncheckedCreateNestedManyWithoutUsersInput
   student_interests?: Prisma.student_interestsUncheckedCreateNestedManyWithoutUsersInput
   student_profiles?: Prisma.student_profilesUncheckedCreateNestedOneWithoutUsersInput
+  email_verification_tokens?: Prisma.email_verification_tokensUncheckedCreateNestedManyWithoutUsersInput
 }
 
 export type usersCreateOrConnectWithoutAi_chat_sessionsInput = {
@@ -701,6 +752,7 @@ export type usersUpdateToOneWithWhereWithoutAi_chat_sessionsInput = {
 export type usersUpdateWithoutAi_chat_sessionsInput = {
   user_id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   full_name?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
@@ -716,11 +768,13 @@ export type usersUpdateWithoutAi_chat_sessionsInput = {
   events?: Prisma.eventsUpdateManyWithoutUsersNestedInput
   student_interests?: Prisma.student_interestsUpdateManyWithoutUsersNestedInput
   student_profiles?: Prisma.student_profilesUpdateOneWithoutUsersNestedInput
+  email_verification_tokens?: Prisma.email_verification_tokensUpdateManyWithoutUsersNestedInput
 }
 
 export type usersUncheckedUpdateWithoutAi_chat_sessionsInput = {
   user_id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   full_name?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
@@ -736,11 +790,13 @@ export type usersUncheckedUpdateWithoutAi_chat_sessionsInput = {
   events?: Prisma.eventsUncheckedUpdateManyWithoutUsersNestedInput
   student_interests?: Prisma.student_interestsUncheckedUpdateManyWithoutUsersNestedInput
   student_profiles?: Prisma.student_profilesUncheckedUpdateOneWithoutUsersNestedInput
+  email_verification_tokens?: Prisma.email_verification_tokensUncheckedUpdateManyWithoutUsersNestedInput
 }
 
 export type usersCreateWithoutCommittee_applicationsInput = {
   user_id?: string
   email: string
+  is_verified?: boolean
   password_hash: string
   full_name: string
   role?: $Enums.user_role | null
@@ -756,11 +812,13 @@ export type usersCreateWithoutCommittee_applicationsInput = {
   events?: Prisma.eventsCreateNestedManyWithoutUsersInput
   student_interests?: Prisma.student_interestsCreateNestedManyWithoutUsersInput
   student_profiles?: Prisma.student_profilesCreateNestedOneWithoutUsersInput
+  email_verification_tokens?: Prisma.email_verification_tokensCreateNestedManyWithoutUsersInput
 }
 
 export type usersUncheckedCreateWithoutCommittee_applicationsInput = {
   user_id?: string
   email: string
+  is_verified?: boolean
   password_hash: string
   full_name: string
   role?: $Enums.user_role | null
@@ -776,6 +834,7 @@ export type usersUncheckedCreateWithoutCommittee_applicationsInput = {
   events?: Prisma.eventsUncheckedCreateNestedManyWithoutUsersInput
   student_interests?: Prisma.student_interestsUncheckedCreateNestedManyWithoutUsersInput
   student_profiles?: Prisma.student_profilesUncheckedCreateNestedOneWithoutUsersInput
+  email_verification_tokens?: Prisma.email_verification_tokensUncheckedCreateNestedManyWithoutUsersInput
 }
 
 export type usersCreateOrConnectWithoutCommittee_applicationsInput = {
@@ -797,6 +856,7 @@ export type usersUpdateToOneWithWhereWithoutCommittee_applicationsInput = {
 export type usersUpdateWithoutCommittee_applicationsInput = {
   user_id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   full_name?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
@@ -812,11 +872,13 @@ export type usersUpdateWithoutCommittee_applicationsInput = {
   events?: Prisma.eventsUpdateManyWithoutUsersNestedInput
   student_interests?: Prisma.student_interestsUpdateManyWithoutUsersNestedInput
   student_profiles?: Prisma.student_profilesUpdateOneWithoutUsersNestedInput
+  email_verification_tokens?: Prisma.email_verification_tokensUpdateManyWithoutUsersNestedInput
 }
 
 export type usersUncheckedUpdateWithoutCommittee_applicationsInput = {
   user_id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   full_name?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
@@ -832,11 +894,13 @@ export type usersUncheckedUpdateWithoutCommittee_applicationsInput = {
   events?: Prisma.eventsUncheckedUpdateManyWithoutUsersNestedInput
   student_interests?: Prisma.student_interestsUncheckedUpdateManyWithoutUsersNestedInput
   student_profiles?: Prisma.student_profilesUncheckedUpdateOneWithoutUsersNestedInput
+  email_verification_tokens?: Prisma.email_verification_tokensUncheckedUpdateManyWithoutUsersNestedInput
 }
 
 export type usersCreateWithoutEvent_analytics_logsInput = {
   user_id?: string
   email: string
+  is_verified?: boolean
   password_hash: string
   full_name: string
   role?: $Enums.user_role | null
@@ -852,11 +916,13 @@ export type usersCreateWithoutEvent_analytics_logsInput = {
   events?: Prisma.eventsCreateNestedManyWithoutUsersInput
   student_interests?: Prisma.student_interestsCreateNestedManyWithoutUsersInput
   student_profiles?: Prisma.student_profilesCreateNestedOneWithoutUsersInput
+  email_verification_tokens?: Prisma.email_verification_tokensCreateNestedManyWithoutUsersInput
 }
 
 export type usersUncheckedCreateWithoutEvent_analytics_logsInput = {
   user_id?: string
   email: string
+  is_verified?: boolean
   password_hash: string
   full_name: string
   role?: $Enums.user_role | null
@@ -872,6 +938,7 @@ export type usersUncheckedCreateWithoutEvent_analytics_logsInput = {
   events?: Prisma.eventsUncheckedCreateNestedManyWithoutUsersInput
   student_interests?: Prisma.student_interestsUncheckedCreateNestedManyWithoutUsersInput
   student_profiles?: Prisma.student_profilesUncheckedCreateNestedOneWithoutUsersInput
+  email_verification_tokens?: Prisma.email_verification_tokensUncheckedCreateNestedManyWithoutUsersInput
 }
 
 export type usersCreateOrConnectWithoutEvent_analytics_logsInput = {
@@ -893,6 +960,7 @@ export type usersUpdateToOneWithWhereWithoutEvent_analytics_logsInput = {
 export type usersUpdateWithoutEvent_analytics_logsInput = {
   user_id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   full_name?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
@@ -908,11 +976,13 @@ export type usersUpdateWithoutEvent_analytics_logsInput = {
   events?: Prisma.eventsUpdateManyWithoutUsersNestedInput
   student_interests?: Prisma.student_interestsUpdateManyWithoutUsersNestedInput
   student_profiles?: Prisma.student_profilesUpdateOneWithoutUsersNestedInput
+  email_verification_tokens?: Prisma.email_verification_tokensUpdateManyWithoutUsersNestedInput
 }
 
 export type usersUncheckedUpdateWithoutEvent_analytics_logsInput = {
   user_id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   full_name?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
@@ -928,11 +998,13 @@ export type usersUncheckedUpdateWithoutEvent_analytics_logsInput = {
   events?: Prisma.eventsUncheckedUpdateManyWithoutUsersNestedInput
   student_interests?: Prisma.student_interestsUncheckedUpdateManyWithoutUsersNestedInput
   student_profiles?: Prisma.student_profilesUncheckedUpdateOneWithoutUsersNestedInput
+  email_verification_tokens?: Prisma.email_verification_tokensUncheckedUpdateManyWithoutUsersNestedInput
 }
 
 export type usersCreateWithoutEvent_commentsInput = {
   user_id?: string
   email: string
+  is_verified?: boolean
   password_hash: string
   full_name: string
   role?: $Enums.user_role | null
@@ -948,11 +1020,13 @@ export type usersCreateWithoutEvent_commentsInput = {
   events?: Prisma.eventsCreateNestedManyWithoutUsersInput
   student_interests?: Prisma.student_interestsCreateNestedManyWithoutUsersInput
   student_profiles?: Prisma.student_profilesCreateNestedOneWithoutUsersInput
+  email_verification_tokens?: Prisma.email_verification_tokensCreateNestedManyWithoutUsersInput
 }
 
 export type usersUncheckedCreateWithoutEvent_commentsInput = {
   user_id?: string
   email: string
+  is_verified?: boolean
   password_hash: string
   full_name: string
   role?: $Enums.user_role | null
@@ -968,6 +1042,7 @@ export type usersUncheckedCreateWithoutEvent_commentsInput = {
   events?: Prisma.eventsUncheckedCreateNestedManyWithoutUsersInput
   student_interests?: Prisma.student_interestsUncheckedCreateNestedManyWithoutUsersInput
   student_profiles?: Prisma.student_profilesUncheckedCreateNestedOneWithoutUsersInput
+  email_verification_tokens?: Prisma.email_verification_tokensUncheckedCreateNestedManyWithoutUsersInput
 }
 
 export type usersCreateOrConnectWithoutEvent_commentsInput = {
@@ -989,6 +1064,7 @@ export type usersUpdateToOneWithWhereWithoutEvent_commentsInput = {
 export type usersUpdateWithoutEvent_commentsInput = {
   user_id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   full_name?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
@@ -1004,11 +1080,13 @@ export type usersUpdateWithoutEvent_commentsInput = {
   events?: Prisma.eventsUpdateManyWithoutUsersNestedInput
   student_interests?: Prisma.student_interestsUpdateManyWithoutUsersNestedInput
   student_profiles?: Prisma.student_profilesUpdateOneWithoutUsersNestedInput
+  email_verification_tokens?: Prisma.email_verification_tokensUpdateManyWithoutUsersNestedInput
 }
 
 export type usersUncheckedUpdateWithoutEvent_commentsInput = {
   user_id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   full_name?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
@@ -1024,11 +1102,13 @@ export type usersUncheckedUpdateWithoutEvent_commentsInput = {
   events?: Prisma.eventsUncheckedUpdateManyWithoutUsersNestedInput
   student_interests?: Prisma.student_interestsUncheckedUpdateManyWithoutUsersNestedInput
   student_profiles?: Prisma.student_profilesUncheckedUpdateOneWithoutUsersNestedInput
+  email_verification_tokens?: Prisma.email_verification_tokensUncheckedUpdateManyWithoutUsersNestedInput
 }
 
 export type usersCreateWithoutEvent_likesInput = {
   user_id?: string
   email: string
+  is_verified?: boolean
   password_hash: string
   full_name: string
   role?: $Enums.user_role | null
@@ -1044,11 +1124,13 @@ export type usersCreateWithoutEvent_likesInput = {
   events?: Prisma.eventsCreateNestedManyWithoutUsersInput
   student_interests?: Prisma.student_interestsCreateNestedManyWithoutUsersInput
   student_profiles?: Prisma.student_profilesCreateNestedOneWithoutUsersInput
+  email_verification_tokens?: Prisma.email_verification_tokensCreateNestedManyWithoutUsersInput
 }
 
 export type usersUncheckedCreateWithoutEvent_likesInput = {
   user_id?: string
   email: string
+  is_verified?: boolean
   password_hash: string
   full_name: string
   role?: $Enums.user_role | null
@@ -1064,6 +1146,7 @@ export type usersUncheckedCreateWithoutEvent_likesInput = {
   events?: Prisma.eventsUncheckedCreateNestedManyWithoutUsersInput
   student_interests?: Prisma.student_interestsUncheckedCreateNestedManyWithoutUsersInput
   student_profiles?: Prisma.student_profilesUncheckedCreateNestedOneWithoutUsersInput
+  email_verification_tokens?: Prisma.email_verification_tokensUncheckedCreateNestedManyWithoutUsersInput
 }
 
 export type usersCreateOrConnectWithoutEvent_likesInput = {
@@ -1085,6 +1168,7 @@ export type usersUpdateToOneWithWhereWithoutEvent_likesInput = {
 export type usersUpdateWithoutEvent_likesInput = {
   user_id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   full_name?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
@@ -1100,11 +1184,13 @@ export type usersUpdateWithoutEvent_likesInput = {
   events?: Prisma.eventsUpdateManyWithoutUsersNestedInput
   student_interests?: Prisma.student_interestsUpdateManyWithoutUsersNestedInput
   student_profiles?: Prisma.student_profilesUpdateOneWithoutUsersNestedInput
+  email_verification_tokens?: Prisma.email_verification_tokensUpdateManyWithoutUsersNestedInput
 }
 
 export type usersUncheckedUpdateWithoutEvent_likesInput = {
   user_id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   full_name?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
@@ -1120,11 +1206,13 @@ export type usersUncheckedUpdateWithoutEvent_likesInput = {
   events?: Prisma.eventsUncheckedUpdateManyWithoutUsersNestedInput
   student_interests?: Prisma.student_interestsUncheckedUpdateManyWithoutUsersNestedInput
   student_profiles?: Prisma.student_profilesUncheckedUpdateOneWithoutUsersNestedInput
+  email_verification_tokens?: Prisma.email_verification_tokensUncheckedUpdateManyWithoutUsersNestedInput
 }
 
 export type usersCreateWithoutEvent_wishlistsInput = {
   user_id?: string
   email: string
+  is_verified?: boolean
   password_hash: string
   full_name: string
   role?: $Enums.user_role | null
@@ -1140,11 +1228,13 @@ export type usersCreateWithoutEvent_wishlistsInput = {
   events?: Prisma.eventsCreateNestedManyWithoutUsersInput
   student_interests?: Prisma.student_interestsCreateNestedManyWithoutUsersInput
   student_profiles?: Prisma.student_profilesCreateNestedOneWithoutUsersInput
+  email_verification_tokens?: Prisma.email_verification_tokensCreateNestedManyWithoutUsersInput
 }
 
 export type usersUncheckedCreateWithoutEvent_wishlistsInput = {
   user_id?: string
   email: string
+  is_verified?: boolean
   password_hash: string
   full_name: string
   role?: $Enums.user_role | null
@@ -1160,6 +1250,7 @@ export type usersUncheckedCreateWithoutEvent_wishlistsInput = {
   events?: Prisma.eventsUncheckedCreateNestedManyWithoutUsersInput
   student_interests?: Prisma.student_interestsUncheckedCreateNestedManyWithoutUsersInput
   student_profiles?: Prisma.student_profilesUncheckedCreateNestedOneWithoutUsersInput
+  email_verification_tokens?: Prisma.email_verification_tokensUncheckedCreateNestedManyWithoutUsersInput
 }
 
 export type usersCreateOrConnectWithoutEvent_wishlistsInput = {
@@ -1181,6 +1272,7 @@ export type usersUpdateToOneWithWhereWithoutEvent_wishlistsInput = {
 export type usersUpdateWithoutEvent_wishlistsInput = {
   user_id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   full_name?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
@@ -1196,11 +1288,13 @@ export type usersUpdateWithoutEvent_wishlistsInput = {
   events?: Prisma.eventsUpdateManyWithoutUsersNestedInput
   student_interests?: Prisma.student_interestsUpdateManyWithoutUsersNestedInput
   student_profiles?: Prisma.student_profilesUpdateOneWithoutUsersNestedInput
+  email_verification_tokens?: Prisma.email_verification_tokensUpdateManyWithoutUsersNestedInput
 }
 
 export type usersUncheckedUpdateWithoutEvent_wishlistsInput = {
   user_id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   full_name?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
@@ -1216,11 +1310,13 @@ export type usersUncheckedUpdateWithoutEvent_wishlistsInput = {
   events?: Prisma.eventsUncheckedUpdateManyWithoutUsersNestedInput
   student_interests?: Prisma.student_interestsUncheckedUpdateManyWithoutUsersNestedInput
   student_profiles?: Prisma.student_profilesUncheckedUpdateOneWithoutUsersNestedInput
+  email_verification_tokens?: Prisma.email_verification_tokensUncheckedUpdateManyWithoutUsersNestedInput
 }
 
 export type usersCreateWithoutEventsInput = {
   user_id?: string
   email: string
+  is_verified?: boolean
   password_hash: string
   full_name: string
   role?: $Enums.user_role | null
@@ -1236,11 +1332,13 @@ export type usersCreateWithoutEventsInput = {
   event_wishlists?: Prisma.event_wishlistsCreateNestedManyWithoutUsersInput
   student_interests?: Prisma.student_interestsCreateNestedManyWithoutUsersInput
   student_profiles?: Prisma.student_profilesCreateNestedOneWithoutUsersInput
+  email_verification_tokens?: Prisma.email_verification_tokensCreateNestedManyWithoutUsersInput
 }
 
 export type usersUncheckedCreateWithoutEventsInput = {
   user_id?: string
   email: string
+  is_verified?: boolean
   password_hash: string
   full_name: string
   role?: $Enums.user_role | null
@@ -1256,6 +1354,7 @@ export type usersUncheckedCreateWithoutEventsInput = {
   event_wishlists?: Prisma.event_wishlistsUncheckedCreateNestedManyWithoutUsersInput
   student_interests?: Prisma.student_interestsUncheckedCreateNestedManyWithoutUsersInput
   student_profiles?: Prisma.student_profilesUncheckedCreateNestedOneWithoutUsersInput
+  email_verification_tokens?: Prisma.email_verification_tokensUncheckedCreateNestedManyWithoutUsersInput
 }
 
 export type usersCreateOrConnectWithoutEventsInput = {
@@ -1277,6 +1376,7 @@ export type usersUpdateToOneWithWhereWithoutEventsInput = {
 export type usersUpdateWithoutEventsInput = {
   user_id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   full_name?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
@@ -1292,11 +1392,13 @@ export type usersUpdateWithoutEventsInput = {
   event_wishlists?: Prisma.event_wishlistsUpdateManyWithoutUsersNestedInput
   student_interests?: Prisma.student_interestsUpdateManyWithoutUsersNestedInput
   student_profiles?: Prisma.student_profilesUpdateOneWithoutUsersNestedInput
+  email_verification_tokens?: Prisma.email_verification_tokensUpdateManyWithoutUsersNestedInput
 }
 
 export type usersUncheckedUpdateWithoutEventsInput = {
   user_id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   full_name?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
@@ -1312,11 +1414,13 @@ export type usersUncheckedUpdateWithoutEventsInput = {
   event_wishlists?: Prisma.event_wishlistsUncheckedUpdateManyWithoutUsersNestedInput
   student_interests?: Prisma.student_interestsUncheckedUpdateManyWithoutUsersNestedInput
   student_profiles?: Prisma.student_profilesUncheckedUpdateOneWithoutUsersNestedInput
+  email_verification_tokens?: Prisma.email_verification_tokensUncheckedUpdateManyWithoutUsersNestedInput
 }
 
 export type usersCreateWithoutStudent_interestsInput = {
   user_id?: string
   email: string
+  is_verified?: boolean
   password_hash: string
   full_name: string
   role?: $Enums.user_role | null
@@ -1332,11 +1436,13 @@ export type usersCreateWithoutStudent_interestsInput = {
   event_wishlists?: Prisma.event_wishlistsCreateNestedManyWithoutUsersInput
   events?: Prisma.eventsCreateNestedManyWithoutUsersInput
   student_profiles?: Prisma.student_profilesCreateNestedOneWithoutUsersInput
+  email_verification_tokens?: Prisma.email_verification_tokensCreateNestedManyWithoutUsersInput
 }
 
 export type usersUncheckedCreateWithoutStudent_interestsInput = {
   user_id?: string
   email: string
+  is_verified?: boolean
   password_hash: string
   full_name: string
   role?: $Enums.user_role | null
@@ -1352,6 +1458,7 @@ export type usersUncheckedCreateWithoutStudent_interestsInput = {
   event_wishlists?: Prisma.event_wishlistsUncheckedCreateNestedManyWithoutUsersInput
   events?: Prisma.eventsUncheckedCreateNestedManyWithoutUsersInput
   student_profiles?: Prisma.student_profilesUncheckedCreateNestedOneWithoutUsersInput
+  email_verification_tokens?: Prisma.email_verification_tokensUncheckedCreateNestedManyWithoutUsersInput
 }
 
 export type usersCreateOrConnectWithoutStudent_interestsInput = {
@@ -1373,6 +1480,7 @@ export type usersUpdateToOneWithWhereWithoutStudent_interestsInput = {
 export type usersUpdateWithoutStudent_interestsInput = {
   user_id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   full_name?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
@@ -1388,11 +1496,13 @@ export type usersUpdateWithoutStudent_interestsInput = {
   event_wishlists?: Prisma.event_wishlistsUpdateManyWithoutUsersNestedInput
   events?: Prisma.eventsUpdateManyWithoutUsersNestedInput
   student_profiles?: Prisma.student_profilesUpdateOneWithoutUsersNestedInput
+  email_verification_tokens?: Prisma.email_verification_tokensUpdateManyWithoutUsersNestedInput
 }
 
 export type usersUncheckedUpdateWithoutStudent_interestsInput = {
   user_id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   full_name?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
@@ -1408,11 +1518,13 @@ export type usersUncheckedUpdateWithoutStudent_interestsInput = {
   event_wishlists?: Prisma.event_wishlistsUncheckedUpdateManyWithoutUsersNestedInput
   events?: Prisma.eventsUncheckedUpdateManyWithoutUsersNestedInput
   student_profiles?: Prisma.student_profilesUncheckedUpdateOneWithoutUsersNestedInput
+  email_verification_tokens?: Prisma.email_verification_tokensUncheckedUpdateManyWithoutUsersNestedInput
 }
 
 export type usersCreateWithoutStudent_profilesInput = {
   user_id?: string
   email: string
+  is_verified?: boolean
   password_hash: string
   full_name: string
   role?: $Enums.user_role | null
@@ -1428,11 +1540,13 @@ export type usersCreateWithoutStudent_profilesInput = {
   event_wishlists?: Prisma.event_wishlistsCreateNestedManyWithoutUsersInput
   events?: Prisma.eventsCreateNestedManyWithoutUsersInput
   student_interests?: Prisma.student_interestsCreateNestedManyWithoutUsersInput
+  email_verification_tokens?: Prisma.email_verification_tokensCreateNestedManyWithoutUsersInput
 }
 
 export type usersUncheckedCreateWithoutStudent_profilesInput = {
   user_id?: string
   email: string
+  is_verified?: boolean
   password_hash: string
   full_name: string
   role?: $Enums.user_role | null
@@ -1448,6 +1562,7 @@ export type usersUncheckedCreateWithoutStudent_profilesInput = {
   event_wishlists?: Prisma.event_wishlistsUncheckedCreateNestedManyWithoutUsersInput
   events?: Prisma.eventsUncheckedCreateNestedManyWithoutUsersInput
   student_interests?: Prisma.student_interestsUncheckedCreateNestedManyWithoutUsersInput
+  email_verification_tokens?: Prisma.email_verification_tokensUncheckedCreateNestedManyWithoutUsersInput
 }
 
 export type usersCreateOrConnectWithoutStudent_profilesInput = {
@@ -1469,6 +1584,7 @@ export type usersUpdateToOneWithWhereWithoutStudent_profilesInput = {
 export type usersUpdateWithoutStudent_profilesInput = {
   user_id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   full_name?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
@@ -1484,11 +1600,13 @@ export type usersUpdateWithoutStudent_profilesInput = {
   event_wishlists?: Prisma.event_wishlistsUpdateManyWithoutUsersNestedInput
   events?: Prisma.eventsUpdateManyWithoutUsersNestedInput
   student_interests?: Prisma.student_interestsUpdateManyWithoutUsersNestedInput
+  email_verification_tokens?: Prisma.email_verification_tokensUpdateManyWithoutUsersNestedInput
 }
 
 export type usersUncheckedUpdateWithoutStudent_profilesInput = {
   user_id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   full_name?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
@@ -1504,6 +1622,111 @@ export type usersUncheckedUpdateWithoutStudent_profilesInput = {
   event_wishlists?: Prisma.event_wishlistsUncheckedUpdateManyWithoutUsersNestedInput
   events?: Prisma.eventsUncheckedUpdateManyWithoutUsersNestedInput
   student_interests?: Prisma.student_interestsUncheckedUpdateManyWithoutUsersNestedInput
+  email_verification_tokens?: Prisma.email_verification_tokensUncheckedUpdateManyWithoutUsersNestedInput
+}
+
+export type usersCreateWithoutEmail_verification_tokensInput = {
+  user_id?: string
+  email: string
+  is_verified?: boolean
+  password_hash: string
+  full_name: string
+  role?: $Enums.user_role | null
+  faculty?: string | null
+  year_of_study?: number | null
+  created_at?: Date | string | null
+  updated_at?: Date | string | null
+  ai_chat_sessions?: Prisma.ai_chat_sessionsCreateNestedManyWithoutUsersInput
+  committee_applications?: Prisma.committee_applicationsCreateNestedManyWithoutUsersInput
+  event_analytics_logs?: Prisma.event_analytics_logsCreateNestedManyWithoutUsersInput
+  event_comments?: Prisma.event_commentsCreateNestedManyWithoutUsersInput
+  event_likes?: Prisma.event_likesCreateNestedManyWithoutUsersInput
+  event_wishlists?: Prisma.event_wishlistsCreateNestedManyWithoutUsersInput
+  events?: Prisma.eventsCreateNestedManyWithoutUsersInput
+  student_interests?: Prisma.student_interestsCreateNestedManyWithoutUsersInput
+  student_profiles?: Prisma.student_profilesCreateNestedOneWithoutUsersInput
+}
+
+export type usersUncheckedCreateWithoutEmail_verification_tokensInput = {
+  user_id?: string
+  email: string
+  is_verified?: boolean
+  password_hash: string
+  full_name: string
+  role?: $Enums.user_role | null
+  faculty?: string | null
+  year_of_study?: number | null
+  created_at?: Date | string | null
+  updated_at?: Date | string | null
+  ai_chat_sessions?: Prisma.ai_chat_sessionsUncheckedCreateNestedManyWithoutUsersInput
+  committee_applications?: Prisma.committee_applicationsUncheckedCreateNestedManyWithoutUsersInput
+  event_analytics_logs?: Prisma.event_analytics_logsUncheckedCreateNestedManyWithoutUsersInput
+  event_comments?: Prisma.event_commentsUncheckedCreateNestedManyWithoutUsersInput
+  event_likes?: Prisma.event_likesUncheckedCreateNestedManyWithoutUsersInput
+  event_wishlists?: Prisma.event_wishlistsUncheckedCreateNestedManyWithoutUsersInput
+  events?: Prisma.eventsUncheckedCreateNestedManyWithoutUsersInput
+  student_interests?: Prisma.student_interestsUncheckedCreateNestedManyWithoutUsersInput
+  student_profiles?: Prisma.student_profilesUncheckedCreateNestedOneWithoutUsersInput
+}
+
+export type usersCreateOrConnectWithoutEmail_verification_tokensInput = {
+  where: Prisma.usersWhereUniqueInput
+  create: Prisma.XOR<Prisma.usersCreateWithoutEmail_verification_tokensInput, Prisma.usersUncheckedCreateWithoutEmail_verification_tokensInput>
+}
+
+export type usersUpsertWithoutEmail_verification_tokensInput = {
+  update: Prisma.XOR<Prisma.usersUpdateWithoutEmail_verification_tokensInput, Prisma.usersUncheckedUpdateWithoutEmail_verification_tokensInput>
+  create: Prisma.XOR<Prisma.usersCreateWithoutEmail_verification_tokensInput, Prisma.usersUncheckedCreateWithoutEmail_verification_tokensInput>
+  where?: Prisma.usersWhereInput
+}
+
+export type usersUpdateToOneWithWhereWithoutEmail_verification_tokensInput = {
+  where?: Prisma.usersWhereInput
+  data: Prisma.XOR<Prisma.usersUpdateWithoutEmail_verification_tokensInput, Prisma.usersUncheckedUpdateWithoutEmail_verification_tokensInput>
+}
+
+export type usersUpdateWithoutEmail_verification_tokensInput = {
+  user_id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+  faculty?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  year_of_study?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  ai_chat_sessions?: Prisma.ai_chat_sessionsUpdateManyWithoutUsersNestedInput
+  committee_applications?: Prisma.committee_applicationsUpdateManyWithoutUsersNestedInput
+  event_analytics_logs?: Prisma.event_analytics_logsUpdateManyWithoutUsersNestedInput
+  event_comments?: Prisma.event_commentsUpdateManyWithoutUsersNestedInput
+  event_likes?: Prisma.event_likesUpdateManyWithoutUsersNestedInput
+  event_wishlists?: Prisma.event_wishlistsUpdateManyWithoutUsersNestedInput
+  events?: Prisma.eventsUpdateManyWithoutUsersNestedInput
+  student_interests?: Prisma.student_interestsUpdateManyWithoutUsersNestedInput
+  student_profiles?: Prisma.student_profilesUpdateOneWithoutUsersNestedInput
+}
+
+export type usersUncheckedUpdateWithoutEmail_verification_tokensInput = {
+  user_id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+  faculty?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  year_of_study?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  ai_chat_sessions?: Prisma.ai_chat_sessionsUncheckedUpdateManyWithoutUsersNestedInput
+  committee_applications?: Prisma.committee_applicationsUncheckedUpdateManyWithoutUsersNestedInput
+  event_analytics_logs?: Prisma.event_analytics_logsUncheckedUpdateManyWithoutUsersNestedInput
+  event_comments?: Prisma.event_commentsUncheckedUpdateManyWithoutUsersNestedInput
+  event_likes?: Prisma.event_likesUncheckedUpdateManyWithoutUsersNestedInput
+  event_wishlists?: Prisma.event_wishlistsUncheckedUpdateManyWithoutUsersNestedInput
+  events?: Prisma.eventsUncheckedUpdateManyWithoutUsersNestedInput
+  student_interests?: Prisma.student_interestsUncheckedUpdateManyWithoutUsersNestedInput
+  student_profiles?: Prisma.student_profilesUncheckedUpdateOneWithoutUsersNestedInput
 }
 
 
@@ -1520,6 +1743,7 @@ export type UsersCountOutputType = {
   event_wishlists: number
   events: number
   student_interests: number
+  email_verification_tokens: number
 }
 
 export type UsersCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1531,6 +1755,7 @@ export type UsersCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.
   event_wishlists?: boolean | UsersCountOutputTypeCountEvent_wishlistsArgs
   events?: boolean | UsersCountOutputTypeCountEventsArgs
   student_interests?: boolean | UsersCountOutputTypeCountStudent_interestsArgs
+  email_verification_tokens?: boolean | UsersCountOutputTypeCountEmail_verification_tokensArgs
 }
 
 /**
@@ -1599,10 +1824,18 @@ export type UsersCountOutputTypeCountStudent_interestsArgs<ExtArgs extends runti
   where?: Prisma.student_interestsWhereInput
 }
 
+/**
+ * UsersCountOutputType without action
+ */
+export type UsersCountOutputTypeCountEmail_verification_tokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.email_verification_tokensWhereInput
+}
+
 
 export type usersSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   user_id?: boolean
   email?: boolean
+  is_verified?: boolean
   password_hash?: boolean
   full_name?: boolean
   role?: boolean
@@ -1619,12 +1852,14 @@ export type usersSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   events?: boolean | Prisma.users$eventsArgs<ExtArgs>
   student_interests?: boolean | Prisma.users$student_interestsArgs<ExtArgs>
   student_profiles?: boolean | Prisma.users$student_profilesArgs<ExtArgs>
+  email_verification_tokens?: boolean | Prisma.users$email_verification_tokensArgs<ExtArgs>
   _count?: boolean | Prisma.UsersCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["users"]>
 
 export type usersSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   user_id?: boolean
   email?: boolean
+  is_verified?: boolean
   password_hash?: boolean
   full_name?: boolean
   role?: boolean
@@ -1637,6 +1872,7 @@ export type usersSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type usersSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   user_id?: boolean
   email?: boolean
+  is_verified?: boolean
   password_hash?: boolean
   full_name?: boolean
   role?: boolean
@@ -1649,6 +1885,7 @@ export type usersSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type usersSelectScalar = {
   user_id?: boolean
   email?: boolean
+  is_verified?: boolean
   password_hash?: boolean
   full_name?: boolean
   role?: boolean
@@ -1658,7 +1895,7 @@ export type usersSelectScalar = {
   updated_at?: boolean
 }
 
-export type usersOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"user_id" | "email" | "password_hash" | "full_name" | "role" | "faculty" | "year_of_study" | "created_at" | "updated_at", ExtArgs["result"]["users"]>
+export type usersOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"user_id" | "email" | "is_verified" | "password_hash" | "full_name" | "role" | "faculty" | "year_of_study" | "created_at" | "updated_at", ExtArgs["result"]["users"]>
 export type usersInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   ai_chat_sessions?: boolean | Prisma.users$ai_chat_sessionsArgs<ExtArgs>
   committee_applications?: boolean | Prisma.users$committee_applicationsArgs<ExtArgs>
@@ -1669,6 +1906,7 @@ export type usersInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   events?: boolean | Prisma.users$eventsArgs<ExtArgs>
   student_interests?: boolean | Prisma.users$student_interestsArgs<ExtArgs>
   student_profiles?: boolean | Prisma.users$student_profilesArgs<ExtArgs>
+  email_verification_tokens?: boolean | Prisma.users$email_verification_tokensArgs<ExtArgs>
   _count?: boolean | Prisma.UsersCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type usersIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1686,10 +1924,12 @@ export type $usersPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     events: Prisma.$eventsPayload<ExtArgs>[]
     student_interests: Prisma.$student_interestsPayload<ExtArgs>[]
     student_profiles: Prisma.$student_profilesPayload<ExtArgs> | null
+    email_verification_tokens: Prisma.$email_verification_tokensPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     user_id: string
     email: string
+    is_verified: boolean
     password_hash: string
     full_name: string
     role: $Enums.user_role | null
@@ -2100,6 +2340,7 @@ export interface Prisma__usersClient<T, Null = never, ExtArgs extends runtime.Ty
   events<T extends Prisma.users$eventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.users$eventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$eventsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   student_interests<T extends Prisma.users$student_interestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.users$student_interestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$student_interestsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   student_profiles<T extends Prisma.users$student_profilesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.users$student_profilesArgs<ExtArgs>>): Prisma.Prisma__student_profilesClient<runtime.Types.Result.GetResult<Prisma.$student_profilesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  email_verification_tokens<T extends Prisma.users$email_verification_tokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.users$email_verification_tokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$email_verification_tokensPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2131,6 +2372,7 @@ export interface Prisma__usersClient<T, Null = never, ExtArgs extends runtime.Ty
 export interface usersFieldRefs {
   readonly user_id: Prisma.FieldRef<"users", 'String'>
   readonly email: Prisma.FieldRef<"users", 'String'>
+  readonly is_verified: Prisma.FieldRef<"users", 'Boolean'>
   readonly password_hash: Prisma.FieldRef<"users", 'String'>
   readonly full_name: Prisma.FieldRef<"users", 'String'>
   readonly role: Prisma.FieldRef<"users", 'user_role'>
@@ -2739,6 +2981,30 @@ export type users$student_profilesArgs<ExtArgs extends runtime.Types.Extensions.
    */
   include?: Prisma.student_profilesInclude<ExtArgs> | null
   where?: Prisma.student_profilesWhereInput
+}
+
+/**
+ * users.email_verification_tokens
+ */
+export type users$email_verification_tokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the email_verification_tokens
+   */
+  select?: Prisma.email_verification_tokensSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the email_verification_tokens
+   */
+  omit?: Prisma.email_verification_tokensOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.email_verification_tokensInclude<ExtArgs> | null
+  where?: Prisma.email_verification_tokensWhereInput
+  orderBy?: Prisma.email_verification_tokensOrderByWithRelationInput | Prisma.email_verification_tokensOrderByWithRelationInput[]
+  cursor?: Prisma.email_verification_tokensWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.Email_verification_tokensScalarFieldEnum | Prisma.Email_verification_tokensScalarFieldEnum[]
 }
 
 /**

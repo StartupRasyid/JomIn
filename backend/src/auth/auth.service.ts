@@ -81,5 +81,19 @@ export class AuthService {
       },
     };
   }
+
+  async getMe(userId: string) {
+    const user = await this.prisma.users.findUnique({ where: { user_id: userId } });
+    if (!user) throw new UnauthorizedException('Account no longer exists.');
+    return {
+      id: user.user_id,
+      email: user.email,
+      fullName: user.full_name,
+      role: user.role,
+      faculty: user.faculty,
+      yearOfStudy: user.year_of_study,
+      createdAt: user.created_at,
+    };
+  }
   
 }

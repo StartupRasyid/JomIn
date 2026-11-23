@@ -8,6 +8,7 @@ import { AppService } from './app.service.js';
 import { PrismaModule } from './prisma/prisma.module.js';
 import { DatabaseController } from './database/database.controller.js';
 import { AuthModule } from './auth/auth.module.js';
+import { EventsModule } from './events/events.module.js';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { AuthModule } from './auth/auth.module.js';
     }),
     PrismaModule,
     AuthModule,
+    EventsModule,
     ThrottlerModule.forRoot([
       {
         ttl: 60000,

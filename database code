@@ -1,0 +1,151 @@
+-- Enable UUID Extension
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+-- Custom Enums
+CREATE TYPE user_role AS ENUM ('student', 'organizer', 'admin');
+CREATE TYPE media_type_enum AS ENUM ('image', 'video');
+CREATE TYPE sticker_type AS ENUM ('registration_link', 'speaker_bio', 'product_link', 'info_popup');
+CREATE TYPE committee_unit AS ENUM ('Activity', 'Multimedia', 'Food', 'Technical', 'Protocol', 'Sponsorship');
+CREATE TYPE application_status AS ENUM ('pending', 'accepted', 'rejected');
+CREATE TYPE analytics_action AS ENUM ('view', 'like', 'comment', 'save', 'share', 'sticker_click');
+
+-- Users & Profiles
+CREATE TABLE users (
+    user_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    full_name VARCHAR(100) NOT NULL,
+    role user_role DEFAULT 'student',
+    faculty VARCHAR(100),
+    year_of_study INT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE student_profiles (
+    profile_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    user_id UUID UNIQUE NOT NULL REFERENCES users(user_id) ON DELETE CASCADE,
+    bio TEXT,
+    personality_summary TEXT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE interests (
+    interest_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    name VARCHAR(50) UNIQUE NOT NULL
+);
+
+CREATE TABLE student_interests (
+    user_id UUID REFERENCES users(user_id) ON DELETE CASCADE,
+    interest_id UUID REFERENCES interests(interest_id) ON DELETE CASCADE,
+    PRIMARY KEY (user_id, interest_id)
+);
+
+--Events & Interactive Posts
+CREATE TABLE events (
+    event_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    organizer_id UUID NOT NULL REFERENCES users(user_id) ON DELETE CASCADE,
+    title VARCHAR(150) NOT NULL,
+    description TEXT NOT NULL,
+    media_url TEXT NOT NULL,
+    media_type media_type_enum DEFAULT 'image',
+    template_id VARCHAR(50),
+    location VARCHAR(150),
+    start_time TIMESTAMP WITH TIME ZONE NOT NULL,
+    end_time TIMESTAMP WITH TIME ZONE NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE event_interests (
+    event_id UUID REFERENCES events(event_id) ON DELETE CASCADE,
+    interest_id UUID REFERENCES interests(interest_id) ON DELETE CASCADE,
+    PRIMARY KEY (event_id, interest_id)
+);
+
+CREATE TABLE event_stickers (
+    sticker_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    event_id UUID NOT NULL REFERENCES events(event_id) ON DELETE CASCADE,
+    type sticker_type NOT NULL,
+    label VARCHAR(100) NOT NULL,
+    target_url TEXT,
+    popup_content TEXT,
+    pos_x FLOAT,
+    pos_y FLOAT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+--Committee Recruitment
+CREATE TABLE committee_openings (
+    opening_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    event_id UUID NOT NULL REFERENCES events(event_id) ON DELETE CASCADE,
+    unit_name committee_unit NOT NULL,
+    description TEXT,
+    slots_available INT DEFAULT 1,
+    is_open BOOLEAN DEFAULT true,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE committee_applications (
+    application_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    opening_id UUID NOT NULL REFERENCES committee_openings(opening_id) ON DELETE CASCADE,
+    student_id UUID NOT NULL REFERENCES users(user_id) ON DELETE CASCADE,
+    status application_status DEFAULT 'pending',
+    applied_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE (opening_id, student_id)
+);
+
+--Social Engagement & Analytics
+CREATE TABLE event_likes (
+    user_id UUID REFERENCES users(user_id) ON DELETE CASCADE,
+    event_id UUID REFERENCES events(event_id) ON DELETE CASCADE,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (user_id, event_id)
+);
+
+CREATE TABLE event_wishlists (
+    user_id UUID REFERENCES users(user_id) ON DELETE CASCADE,
+    event_id UUID REFERENCES events(event_id) ON DELETE CASCADE,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (user_id, event_id)
+);
+
+CREATE TABLE event_comments (
+    comment_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    event_id UUID NOT NULL REFERENCES events(event_id) ON DELETE CASCADE,
+    user_id UUID NOT NULL REFERENCES users(user_id) ON DELETE CASCADE,
+    content TEXT NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE event_analytics_logs (
+    log_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    event_id UUID NOT NULL REFERENCES events(event_id) ON DELETE CASCADE,
+    user_id UUID REFERENCES users(user_id) ON DELETE SET NULL,
+    sticker_id UUID REFERENCES event_stickers(sticker_id) ON DELETE SET NULL,
+    action_type analytics_action NOT NULL,
+    timestamp TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+--AI Chatbot Logs
+CREATE TABLE ai_chat_sessions (
+    session_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    user_id UUID NOT NULL REFERENCES users(user_id) ON DELETE CASCADE,
+    started_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    ended_at TIMESTAMP WITH TIME ZONE
+);
+
+CREATE TABLE ai_chat_messages (
+    message_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    session_id UUID NOT NULL REFERENCES ai_chat_sessions(session_id) ON DELETE CASCADE,
+    sender VARCHAR(10) CHECK (sender IN ('user', 'ai')),
+    message_text TEXT NOT NULL,
+    recommended_event_ids UUID[],
+    recommended_units committee_unit[],
+    timestamp TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Optimization Indexes
+CREATE INDEX idx_events_organizer ON events(organizer_id);
+CREATE INDEX idx_analytics_event_action ON event_analytics_logs(event_id, action_type);
+CREATE INDEX idx_committee_openings_event ON committee_openings(event_id);

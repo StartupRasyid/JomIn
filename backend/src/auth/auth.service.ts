@@ -1,23 +1,47 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+
+import {
+  ConflictException,
+  Injectable,
+  ForbiddenException,
+  UnauthorizedException,
+} from '@nestjs/common';
+
 import bcrypt from 'bcryptjs';
 import { randomBytes, createHash } from 'node:crypto';
-
 import { PrismaService } from '../prisma/prisma.service.js';
 import { RegisterDto } from './dto/register.dto.js';
+import { LoginDto } from './dto/login.dto.js';
+import { JwtService } from '@nestjs/jwt';
+import { EmailService } from './email.service.js';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly jwtService: JwtService,
+    private readonly emailService: EmailService,
+  ) {}
 
+  // Generate a secure email verification token
+  private generateVerificationToken() {
+    const token = randomBytes(32).toString('hex');
+
+    const tokenHash = createHash('sha256')
+      .update(token)
+      .digest('hex');
+
+    return { token, tokenHash };
+  }
+
+  // Register a new user
   async register(dto: RegisterDto) {
-    // Normalize email
     const email = dto.email.trim().toLowerCase();
 
-    // Check whether the email already exists
     const existing = await this.prisma.users.findUnique({
       where: { email },
     });
 
+    // Avoid revealing whether an email is already registered
     if (existing) {
       return {
         message:
@@ -25,10 +49,10 @@ export class AuthService {
       };
     }
 
-    // Hash the user's password
+    // Hash password
     const passwordHash = await bcrypt.hash(dto.password, 10);
 
-    // Create the user account
+    // Create user
     let user;
 
     try {
@@ -42,7 +66,7 @@ export class AuthService {
         },
       });
     } catch (error) {
-      // Handle simultaneous registration attempts for the same email
+      // Handle duplicate email during simultaneous registrations
       if (
         typeof error === 'object' &&
         error !== null &&
@@ -61,7 +85,7 @@ export class AuthService {
     // Generate verification token
     const { token, tokenHash } = this.generateVerificationToken();
 
-    // Set token expiration to 15 minutes
+    // Token expires after 15 minutes
     const expiresAt = new Date(Date.now() + 15 * 60 * 1000);
 
     // Store hashed token in database
@@ -76,33 +100,31 @@ export class AuthService {
     // Send verification email
     await this.emailService.sendVerificationEmail(email, token);
 
-    // Return registration response
     return {
       message:
         'If registration is possible, please check your email for further instructions.',
     };
   }
+
   // Verify user's email address
   async verifyEmail(token: string) {
-    // Hash the token received from the email
     const tokenHash = createHash('sha256')
       .update(token)
       .digest('hex');
 
-    // Find the matching verification token
+    // Find matching verification token
     const verificationToken =
       await this.prisma.email_verification_tokens.findUnique({
         where: { token_hash: tokenHash },
       });
 
-    // Check whether the token exists
     if (!verificationToken) {
       throw new ConflictException(
         'Invalid or expired verification link.',
       );
     }
 
-    // Check whether the token has expired
+    // Check expiration
     if (verificationToken.expires_at <= new Date()) {
       await this.prisma.email_verification_tokens.delete({
         where: { token_id: verificationToken.token_id },
@@ -113,7 +135,7 @@ export class AuthService {
       );
     }
 
-    // Mark the user's email as verified and consume the token
+    // Verify user and consume token
     await this.prisma.$transaction([
       this.prisma.users.update({
         where: { user_id: verificationToken.user_id },
@@ -128,43 +150,34 @@ export class AuthService {
       message: 'Email verified successfully. You can now log in.',
     };
   }
+
   // Resend email verification link
   async resendVerificationEmail(emailInput: string) {
     const email = emailInput.trim().toLowerCase();
 
-    // Find the registered user
     const user = await this.prisma.users.findUnique({
       where: { email },
     });
 
-    // Return the same response if the account does not exist
-    if (!user) {
+    // Generic response for nonexistent accounts
+    if (!user || user.is_verified) {
       return {
         message:
           'If the account is eligible, a verification email will be sent.',
       };
     }
 
-    // Return the same response if the email is already verified
-    if (user.is_verified) {
-      return {
-        message:
-          'If the account is eligible, a verification email will be sent.',
-      };
-    }
-
-    // Delete previous verification tokens
+    // Remove old verification tokens
     await this.prisma.email_verification_tokens.deleteMany({
       where: { user_id: user.user_id },
     });
 
-    // Generate a new verification token
+    // Generate new token
     const { token, tokenHash } = this.generateVerificationToken();
 
-    // Set expiration to 15 minutes
     const expiresAt = new Date(Date.now() + 15 * 60 * 1000);
 
-    // Store the new token
+    // Store new token
     await this.prisma.email_verification_tokens.create({
       data: {
         user_id: user.user_id,
@@ -173,7 +186,7 @@ export class AuthService {
       },
     });
 
-    // Send the new verification email
+    // Send verification email
     await this.emailService.sendVerificationEmail(email, token);
 
     return {
@@ -182,21 +195,31 @@ export class AuthService {
     };
   }
 
+  // Login
   async login(dto: LoginDto) {
     const email = dto.email.trim().toLowerCase();
 
-    const user = await this.prisma.users.findUnique({ where: { email } });
+    const user = await this.prisma.users.findUnique({
+      where: { email },
+    });
+
     const passwordOk = user
       ? await bcrypt.compare(dto.password, user.password_hash)
       : false;
 
-    // Same message for "no such email" and "wrong password"
+    // Same error for nonexistent email and incorrect password
     if (!user || !passwordOk) {
       throw new UnauthorizedException('Invalid email or password.');
     }
+
+    // Require email verification before login
     if (!user.is_verified) {
-      throw new ForbiddenException('Please verify your email before logging in.');
+      throw new ForbiddenException(
+        'Please verify your email before logging in.',
+      );
     }
+
+    // Generate JWT
     const accessToken = await this.jwtService.signAsync({
       sub: user.user_id,
       role: user.role,
@@ -213,9 +236,16 @@ export class AuthService {
     };
   }
 
+  // Get current authenticated user
   async getMe(userId: string) {
-    const user = await this.prisma.users.findUnique({ where: { user_id: userId } });
-    if (!user) throw new UnauthorizedException('Account no longer exists.');
+    const user = await this.prisma.users.findUnique({
+      where: { user_id: userId },
+    });
+
+    if (!user) {
+      throw new UnauthorizedException('Account no longer exists.');
+    }
+
     return {
       id: user.user_id,
       email: user.email,
@@ -226,5 +256,4 @@ export class AuthService {
       createdAt: user.created_at,
     };
   }
-  
 }

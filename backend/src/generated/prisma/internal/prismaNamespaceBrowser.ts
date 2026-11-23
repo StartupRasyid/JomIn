@@ -65,7 +65,8 @@ export const ModelName = {
   interests: 'interests',
   student_interests: 'student_interests',
   student_profiles: 'student_profiles',
-  users: 'users'
+  users: 'users',
+  email_verification_tokens: 'email_verification_tokens'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -249,10 +250,22 @@ export const UsersScalarFieldEnum = {
   faculty: 'faculty',
   year_of_study: 'year_of_study',
   created_at: 'created_at',
-  updated_at: 'updated_at'
+  updated_at: 'updated_at',
+  is_verified: 'is_verified'
 } as const
 
 export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]
+
+
+export const Email_verification_tokensScalarFieldEnum = {
+  token_id: 'token_id',
+  user_id: 'user_id',
+  token_hash: 'token_hash',
+  expires_at: 'expires_at',
+  created_at: 'created_at'
+} as const
+
+export type Email_verification_tokensScalarFieldEnum = (typeof Email_verification_tokensScalarFieldEnum)[keyof typeof Email_verification_tokensScalarFieldEnum]
 
 
 export const SortOrder = {

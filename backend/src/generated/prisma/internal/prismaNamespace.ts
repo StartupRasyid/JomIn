@@ -411,7 +411,8 @@ export const ModelName = {
   interests: 'interests',
   student_interests: 'student_interests',
   student_profiles: 'student_profiles',
-  users: 'users'
+  users: 'users',
+  email_verification_tokens: 'email_verification_tokens'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -427,7 +428,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "ai_chat_messages" | "ai_chat_sessions" | "committee_applications" | "committee_openings" | "event_analytics_logs" | "event_comments" | "event_interests" | "event_likes" | "event_stickers" | "event_wishlists" | "events" | "interests" | "student_interests" | "student_profiles" | "users"
+    modelProps: "ai_chat_messages" | "ai_chat_sessions" | "committee_applications" | "committee_openings" | "event_analytics_logs" | "event_comments" | "event_interests" | "event_likes" | "event_stickers" | "event_wishlists" | "events" | "interests" | "student_interests" | "student_profiles" | "users" | "email_verification_tokens"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1541,6 +1542,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    email_verification_tokens: {
+      payload: Prisma.$email_verification_tokensPayload<ExtArgs>
+      fields: Prisma.email_verification_tokensFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.email_verification_tokensFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$email_verification_tokensPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.email_verification_tokensFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$email_verification_tokensPayload>
+        }
+        findFirst: {
+          args: Prisma.email_verification_tokensFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$email_verification_tokensPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.email_verification_tokensFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$email_verification_tokensPayload>
+        }
+        findMany: {
+          args: Prisma.email_verification_tokensFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$email_verification_tokensPayload>[]
+        }
+        create: {
+          args: Prisma.email_verification_tokensCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$email_verification_tokensPayload>
+        }
+        createMany: {
+          args: Prisma.email_verification_tokensCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.email_verification_tokensCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$email_verification_tokensPayload>[]
+        }
+        delete: {
+          args: Prisma.email_verification_tokensDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$email_verification_tokensPayload>
+        }
+        update: {
+          args: Prisma.email_verification_tokensUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$email_verification_tokensPayload>
+        }
+        deleteMany: {
+          args: Prisma.email_verification_tokensDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.email_verification_tokensUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.email_verification_tokensUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$email_verification_tokensPayload>[]
+        }
+        upsert: {
+          args: Prisma.email_verification_tokensUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$email_verification_tokensPayload>
+        }
+        aggregate: {
+          args: Prisma.Email_verification_tokensAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateEmail_verification_tokens>
+        }
+        groupBy: {
+          args: Prisma.email_verification_tokensGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Email_verification_tokensGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.email_verification_tokensCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.Email_verification_tokensCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1745,10 +1820,22 @@ export const UsersScalarFieldEnum = {
   faculty: 'faculty',
   year_of_study: 'year_of_study',
   created_at: 'created_at',
-  updated_at: 'updated_at'
+  updated_at: 'updated_at',
+  is_verified: 'is_verified'
 } as const
 
 export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]
+
+
+export const Email_verification_tokensScalarFieldEnum = {
+  token_id: 'token_id',
+  user_id: 'user_id',
+  token_hash: 'token_hash',
+  expires_at: 'expires_at',
+  created_at: 'created_at'
+} as const
+
+export type Email_verification_tokensScalarFieldEnum = (typeof Email_verification_tokensScalarFieldEnum)[keyof typeof Email_verification_tokensScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -2093,6 +2180,7 @@ export type GlobalOmitConfig = {
   student_interests?: Prisma.student_interestsOmit
   student_profiles?: Prisma.student_profilesOmit
   users?: Prisma.usersOmit
+  email_verification_tokens?: Prisma.email_verification_tokensOmit
 }
 
 /* Types for Logging */

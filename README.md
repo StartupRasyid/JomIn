@@ -123,10 +123,13 @@ Open `backend\.env` and fill in your values:
  
 ```
 DATABASE_URL="postgresql://postgres:YOUR_PASSWORD@localhost:5432/jomin_dev?schema=public"
+SUPABASE_URL="https://yyuswgbbfdgfirmwbhxl.supabase.co"
+SUPABASE_SERVICE_ROLE_KEY="YOUR_SUPABASE_SERVICE_ROLE_KEY"
 ```
  
 - `postgres` is the default username, `5432` the default port.
 - If your password contains special characters (`@`, `#`, `/`), URL-encode them (`@` becomes `%40`) or use a simpler local password.
+- Ask the project owner for `SUPABASE_SERVICE_ROLE_KEY` (found in Supabase **Project Settings → API Keys → `service_role` secret**). It is required for event poster/video uploads (`event-media` bucket).
 - **Never commit `.env`.** It is already in `.gitignore`.
 Create the tables and start the API:
  
@@ -209,6 +212,8 @@ If you're unsure, running all of them is harmless.
 | Strange `npm install` errors | Node version differs from the team's | Check `node -v`, match the team's major version, delete `node_modules`, run `npm install` again |
 | Port 3000 already in use | Another process is using it | Close the other terminal, or change `PORT` in `.env` |
 | `Running scripts is disabled on this system` | PowerShell execution policy | Run once: `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned` |
+| `Configuration key "SUPABASE_URL" does not exist` or `Upload failed` | Missing Supabase Storage keys in `.env`, or using the `anon` key instead of `service_role` | Add `SUPABASE_URL` and the `service_role` secret key to `backend\.env` and restart the server |
+| `Namespace 'global.Express' has no exported member 'Multer'` | `@types/multer` not loaded in ESM TypeScript files | Run `npm install --save-dev @types/multer` in `backend/` and add `import 'multer';` at the top of the file using `Express.Multer.File` |
  
 ### Flutter and Android
  
@@ -385,6 +390,7 @@ Never edit a migration that has already been merged. Create a new one instead. I
 - it runs on a real device or emulator against the backend,
 - there are no hardcoded secrets or URLs (use `.env` or a config file),
 - new endpoints appear in the API docs (TODO: Swagger URL, for example `http://localhost:3000/api`),
+- new endpoints appear in the API docs (`http://localhost:3000/api/docs`),
 - any new environment variable is added to `.env.example`.
 **Secrets.** Share passwords and API keys privately, never in a public chat, an issue, or a commit.
  

@@ -1,5 +1,6 @@
-
 import 'package:flutter/material.dart';
+
+import '../../../events/presentation/screens/pick_media_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -14,7 +15,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> _pages = const [
     Center(child: Text('Discover events')),
     Center(child: Text('Explore events')),
-    Center(child: Text('Create a post')),
+    PickMediaScreen(),
     Center(child: Text('Saved events')),
     Center(child: Text('Your profile')),
   ];

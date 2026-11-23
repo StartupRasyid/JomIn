@@ -18,7 +18,8 @@ import { VerifyEmailDto } from './dto/verify-email.dto.js';
 import { ResendVerificationDto } from './dto/resend-verification.dto.js';
 
 import { JwtAuthGuard } from './jwt-auth.guard.js';
-import { CurrentUser, type AuthUser } from './current-user.decorator.js';
+import { CurrentUser } from './current-user.decorator.js';
+import type { AuthenticatedUser } from '../common/interfaces/authenticated-user.interface.js';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -55,7 +56,7 @@ export class AuthController {
   @Get('me')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
-  me(@CurrentUser() user: AuthUser) {
-    return this.authService.getMe(user.userId);
+  me(@CurrentUser() user: AuthenticatedUser) {
+    return this.authService.getMe(user.user_id);
   }
 }

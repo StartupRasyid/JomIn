@@ -1,11 +1,16 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import { ConflictException, Injectable, ForbiddenException, UnauthorizedException } from '@nestjs/common';
 import bcrypt from 'bcryptjs';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { RegisterDto } from './dto/register.dto.js';
+import { JwtService } from '@nestjs/jwt';
+import { LoginDto } from './dto/login.dto.js';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly jwtService: JwtService,
+  ) {}
 
   async register(dto: RegisterDto) {
     const email = dto.email.trim().toLowerCase();
@@ -46,4 +51,50 @@ export class AuthService {
       createdAt: user.created_at,
     };
   }
+
+  async login(dto: LoginDto) {
+    const email = dto.email.trim().toLowerCase();
+
+    const user = await this.prisma.users.findUnique({ where: { email } });
+    const passwordOk = user
+      ? await bcrypt.compare(dto.password, user.password_hash)
+      : false;
+
+    // Same message for "no such email" and "wrong password"
+    if (!user || !passwordOk) {
+      throw new UnauthorizedException('Invalid email or password.');
+    }
+    if (!user.is_verified) {
+      throw new ForbiddenException('Please verify your email before logging in.');
+    }
+    const accessToken = await this.jwtService.signAsync({
+      sub: user.user_id,
+      role: user.role,
+    });
+
+    return {
+      accessToken,
+      user: {
+        id: user.user_id,
+        email: user.email,
+        fullName: user.full_name,
+        role: user.role,
+      },
+    };
+  }
+
+  async getMe(userId: string) {
+    const user = await this.prisma.users.findUnique({ where: { user_id: userId } });
+    if (!user) throw new UnauthorizedException('Account no longer exists.');
+    return {
+      id: user.user_id,
+      email: user.email,
+      fullName: user.full_name,
+      role: user.role,
+      faculty: user.faculty,
+      yearOfStudy: user.year_of_study,
+      createdAt: user.created_at,
+    };
+  }
+  
 }

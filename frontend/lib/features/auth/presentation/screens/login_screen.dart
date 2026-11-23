@@ -1,6 +1,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:dio/dio.dart';
+import 'package:frontend/core/api_client.dart';
+import 'package:frontend/core/token_storage.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -16,6 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
 
   bool _obscurePassword = true;
+  bool _isLoading = false;
 
   @override
   void dispose() {
@@ -24,14 +28,39 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-  void _login() {
-    if (_formKey.currentState!.validate()) {
+  Future<void> _login() async {
+    if (!_formKey.currentState!.validate()) return;
+
+    setState(() => _isLoading = true);
+
+    try {
+      final res = await dio.post('/auth/login', data: {
+        'email': _emailController.text.trim(),
+        'password': _passwordController.text,
+      });
+
+      await TokenStorage.save(res.data['accessToken'] as String);
+
+      if (!mounted) return;
+      context.go('/home');
+    } on DioException catch (e) {
+      if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Login API is not connected yet.'),
-        ),
+        SnackBar(content: Text(_errorMessage(e))),
       );
+    } finally {
+      if (mounted) setState(() => _isLoading = false);
     }
+  }
+
+  String _errorMessage(DioException e) {
+    final status = e.response?.statusCode;
+    if (status == 401) return 'Incorrect email or password.';
+    if (status == 400) return 'Please check your details and try again.';
+    if (status == 429) return 'Too many attempts. Please wait a minute.';
+    if (status == 403) return 'Please verify your email first.';
+    if (e.response == null) return 'Cannot reach the server. Is the backend running?';
+    return 'Something went wrong. Please try again.';
   }
 
   @override
@@ -155,14 +184,17 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: 52,
                     child: ElevatedButton(
-                      onPressed: _login,
-                      child: const Text(
-                        'Login',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      onPressed: _isLoading ? null : _login,
+                      child: _isLoading
+                          ? const SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: CircularProgressIndicator(strokeWidth: 2),
+                            )
+                          : const Text(
+                              'Login',
+                              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                            ),
                     ),
                   ),
 

@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/network/api_provider.dart';
+import '../../../../core/session.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
@@ -20,6 +21,17 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
 
   static const Color backgroundColor = Color(0xFF171316);
   static const Color primaryColor = Color(0xFF7C2140);
+
+  bool _navigated = false;
+
+  Future<void> _routeAfterConnect() async {
+    if (_navigated) return; // avoid double navigation
+    _navigated = true;
+
+    final loggedIn = await hasValidSession();
+    if (!mounted) return;
+    context.go(loggedIn ? '/home' : '/login');
+  }
 
   @override
   void initState() {
@@ -64,7 +76,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
             data['database'] == 'connected';
 
         if (connected && mounted) {
-          context.go('/login');
+          _routeAfterConnect();
         }
       });
     });

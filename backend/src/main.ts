@@ -35,6 +35,7 @@ async function bootstrap() {
     .setTitle('JomIn API')
     .setDescription('API documentation for the JomIn campus event platform')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

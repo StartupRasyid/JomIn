@@ -1,10 +1,11 @@
 
 import { Controller, Get, UseGuards } from '@nestjs/common';
 import { AppService } from './app.service.js';
-
+import { JwtAuthGuard } from './auth/jwt-auth.guard.js';
 import { RolesGuard } from './common/guards/roles.guard.js';
 import { Roles } from './common/decorators/roles.decorator.js';
 import { user_role } from './generated/prisma/enums.js';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller()
 export class AppController {
@@ -19,8 +20,9 @@ export class AppController {
   health() {
     return { status: 'ok' };
   }
-
-  @UseGuards(RolesGuard)
+  
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(user_role.admin)
   @Get('test-admin')
   testAdmin() {

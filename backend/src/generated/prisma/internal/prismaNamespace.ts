@@ -1821,7 +1821,8 @@ export const UsersScalarFieldEnum = {
   faculty: 'faculty',
   year_of_study: 'year_of_study',
   created_at: 'created_at',
-  updated_at: 'updated_at'
+  updated_at: 'updated_at',
+  is_verified: 'is_verified'
 } as const
 
 export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]

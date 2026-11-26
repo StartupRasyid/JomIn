@@ -45,6 +45,7 @@ export type UsersMinAggregateOutputType = {
   year_of_study: number | null
   created_at: Date | null
   updated_at: Date | null
+  is_verified: boolean | null
 }
 
 export type UsersMaxAggregateOutputType = {
@@ -58,6 +59,7 @@ export type UsersMaxAggregateOutputType = {
   year_of_study: number | null
   created_at: Date | null
   updated_at: Date | null
+  is_verified: boolean | null
 }
 
 export type UsersCountAggregateOutputType = {
@@ -71,6 +73,7 @@ export type UsersCountAggregateOutputType = {
   year_of_study: number
   created_at: number
   updated_at: number
+  is_verified: number
   _all: number
 }
 
@@ -94,6 +97,7 @@ export type UsersMinAggregateInputType = {
   year_of_study?: true
   created_at?: true
   updated_at?: true
+  is_verified?: true
 }
 
 export type UsersMaxAggregateInputType = {
@@ -107,6 +111,7 @@ export type UsersMaxAggregateInputType = {
   year_of_study?: true
   created_at?: true
   updated_at?: true
+  is_verified?: true
 }
 
 export type UsersCountAggregateInputType = {
@@ -120,6 +125,7 @@ export type UsersCountAggregateInputType = {
   year_of_study?: true
   created_at?: true
   updated_at?: true
+  is_verified?: true
   _all?: true
 }
 
@@ -220,6 +226,7 @@ export type UsersGroupByOutputType = {
   year_of_study: number | null
   created_at: Date | null
   updated_at: Date | null
+  is_verified: boolean
   _count: UsersCountAggregateOutputType | null
   _avg: UsersAvgAggregateOutputType | null
   _sum: UsersSumAggregateOutputType | null
@@ -256,8 +263,10 @@ export type usersWhereInput = {
   year_of_study?: Prisma.IntNullableFilter<"users"> | number | null
   created_at?: Prisma.DateTimeNullableFilter<"users"> | Date | string | null
   updated_at?: Prisma.DateTimeNullableFilter<"users"> | Date | string | null
+  is_verified?: Prisma.BoolFilter<"users"> | boolean
   ai_chat_sessions?: Prisma.Ai_chat_sessionsListRelationFilter
   committee_applications?: Prisma.Committee_applicationsListRelationFilter
+  email_verification_tokens?: Prisma.Email_verification_tokensListRelationFilter
   event_analytics_logs?: Prisma.Event_analytics_logsListRelationFilter
   event_comments?: Prisma.Event_commentsListRelationFilter
   event_likes?: Prisma.Event_likesListRelationFilter
@@ -279,8 +288,10 @@ export type usersOrderByWithRelationInput = {
   year_of_study?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrderInput | Prisma.SortOrder
   updated_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  is_verified?: Prisma.SortOrder
   ai_chat_sessions?: Prisma.ai_chat_sessionsOrderByRelationAggregateInput
   committee_applications?: Prisma.committee_applicationsOrderByRelationAggregateInput
+  email_verification_tokens?: Prisma.email_verification_tokensOrderByRelationAggregateInput
   event_analytics_logs?: Prisma.event_analytics_logsOrderByRelationAggregateInput
   event_comments?: Prisma.event_commentsOrderByRelationAggregateInput
   event_likes?: Prisma.event_likesOrderByRelationAggregateInput
@@ -305,8 +316,10 @@ export type usersWhereUniqueInput = Prisma.AtLeast<{
   year_of_study?: Prisma.IntNullableFilter<"users"> | number | null
   created_at?: Prisma.DateTimeNullableFilter<"users"> | Date | string | null
   updated_at?: Prisma.DateTimeNullableFilter<"users"> | Date | string | null
+  is_verified?: Prisma.BoolFilter<"users"> | boolean
   ai_chat_sessions?: Prisma.Ai_chat_sessionsListRelationFilter
   committee_applications?: Prisma.Committee_applicationsListRelationFilter
+  email_verification_tokens?: Prisma.Email_verification_tokensListRelationFilter
   event_analytics_logs?: Prisma.Event_analytics_logsListRelationFilter
   event_comments?: Prisma.Event_commentsListRelationFilter
   event_likes?: Prisma.Event_likesListRelationFilter
@@ -328,6 +341,7 @@ export type usersOrderByWithAggregationInput = {
   year_of_study?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrderInput | Prisma.SortOrder
   updated_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  is_verified?: Prisma.SortOrder
   _count?: Prisma.usersCountOrderByAggregateInput
   _avg?: Prisma.usersAvgOrderByAggregateInput
   _max?: Prisma.usersMaxOrderByAggregateInput
@@ -349,6 +363,7 @@ export type usersScalarWhereWithAggregatesInput = {
   year_of_study?: Prisma.IntNullableWithAggregatesFilter<"users"> | number | null
   created_at?: Prisma.DateTimeNullableWithAggregatesFilter<"users"> | Date | string | null
   updated_at?: Prisma.DateTimeNullableWithAggregatesFilter<"users"> | Date | string | null
+  is_verified?: Prisma.BoolWithAggregatesFilter<"users"> | boolean
 }
 
 export type usersCreateInput = {
@@ -362,8 +377,10 @@ export type usersCreateInput = {
   year_of_study?: number | null
   created_at?: Date | string | null
   updated_at?: Date | string | null
+  is_verified?: boolean
   ai_chat_sessions?: Prisma.ai_chat_sessionsCreateNestedManyWithoutUsersInput
   committee_applications?: Prisma.committee_applicationsCreateNestedManyWithoutUsersInput
+  email_verification_tokens?: Prisma.email_verification_tokensCreateNestedManyWithoutUsersInput
   event_analytics_logs?: Prisma.event_analytics_logsCreateNestedManyWithoutUsersInput
   event_comments?: Prisma.event_commentsCreateNestedManyWithoutUsersInput
   event_likes?: Prisma.event_likesCreateNestedManyWithoutUsersInput
@@ -385,8 +402,10 @@ export type usersUncheckedCreateInput = {
   year_of_study?: number | null
   created_at?: Date | string | null
   updated_at?: Date | string | null
+  is_verified?: boolean
   ai_chat_sessions?: Prisma.ai_chat_sessionsUncheckedCreateNestedManyWithoutUsersInput
   committee_applications?: Prisma.committee_applicationsUncheckedCreateNestedManyWithoutUsersInput
+  email_verification_tokens?: Prisma.email_verification_tokensUncheckedCreateNestedManyWithoutUsersInput
   event_analytics_logs?: Prisma.event_analytics_logsUncheckedCreateNestedManyWithoutUsersInput
   event_comments?: Prisma.event_commentsUncheckedCreateNestedManyWithoutUsersInput
   event_likes?: Prisma.event_likesUncheckedCreateNestedManyWithoutUsersInput
@@ -408,8 +427,10 @@ export type usersUpdateInput = {
   year_of_study?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ai_chat_sessions?: Prisma.ai_chat_sessionsUpdateManyWithoutUsersNestedInput
   committee_applications?: Prisma.committee_applicationsUpdateManyWithoutUsersNestedInput
+  email_verification_tokens?: Prisma.email_verification_tokensUpdateManyWithoutUsersNestedInput
   event_analytics_logs?: Prisma.event_analytics_logsUpdateManyWithoutUsersNestedInput
   event_comments?: Prisma.event_commentsUpdateManyWithoutUsersNestedInput
   event_likes?: Prisma.event_likesUpdateManyWithoutUsersNestedInput
@@ -431,8 +452,10 @@ export type usersUncheckedUpdateInput = {
   year_of_study?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ai_chat_sessions?: Prisma.ai_chat_sessionsUncheckedUpdateManyWithoutUsersNestedInput
   committee_applications?: Prisma.committee_applicationsUncheckedUpdateManyWithoutUsersNestedInput
+  email_verification_tokens?: Prisma.email_verification_tokensUncheckedUpdateManyWithoutUsersNestedInput
   event_analytics_logs?: Prisma.event_analytics_logsUncheckedUpdateManyWithoutUsersNestedInput
   event_comments?: Prisma.event_commentsUncheckedUpdateManyWithoutUsersNestedInput
   event_likes?: Prisma.event_likesUncheckedUpdateManyWithoutUsersNestedInput
@@ -454,6 +477,7 @@ export type usersCreateManyInput = {
   year_of_study?: number | null
   created_at?: Date | string | null
   updated_at?: Date | string | null
+  is_verified?: boolean
 }
 
 export type usersUpdateManyMutationInput = {
@@ -467,6 +491,7 @@ export type usersUpdateManyMutationInput = {
   year_of_study?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type usersUncheckedUpdateManyInput = {
@@ -480,6 +505,7 @@ export type usersUncheckedUpdateManyInput = {
   year_of_study?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type UsersScalarRelationFilter = {
@@ -503,6 +529,7 @@ export type usersCountOrderByAggregateInput = {
   year_of_study?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
+  is_verified?: Prisma.SortOrder
 }
 
 export type usersAvgOrderByAggregateInput = {
@@ -520,6 +547,7 @@ export type usersMaxOrderByAggregateInput = {
   year_of_study?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
+  is_verified?: Prisma.SortOrder
 }
 
 export type usersMinOrderByAggregateInput = {
@@ -533,6 +561,7 @@ export type usersMinOrderByAggregateInput = {
   year_of_study?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
+  is_verified?: Prisma.SortOrder
 }
 
 export type usersSumOrderByAggregateInput = {
@@ -675,6 +704,10 @@ export type NullableEnumuser_roleFieldUpdateOperationsInput = {
   set?: $Enums.user_role | null
 }
 
+export type BoolFieldUpdateOperationsInput = {
+  set?: boolean
+}
+
 export type usersCreateNestedOneWithoutEmail_verification_tokensInput = {
   create?: Prisma.XOR<Prisma.usersCreateWithoutEmail_verification_tokensInput, Prisma.usersUncheckedCreateWithoutEmail_verification_tokensInput>
   connectOrCreate?: Prisma.usersCreateOrConnectWithoutEmail_verification_tokensInput
@@ -700,7 +733,9 @@ export type usersCreateWithoutAi_chat_sessionsInput = {
   year_of_study?: number | null
   created_at?: Date | string | null
   updated_at?: Date | string | null
+  is_verified?: boolean
   committee_applications?: Prisma.committee_applicationsCreateNestedManyWithoutUsersInput
+  email_verification_tokens?: Prisma.email_verification_tokensCreateNestedManyWithoutUsersInput
   event_analytics_logs?: Prisma.event_analytics_logsCreateNestedManyWithoutUsersInput
   event_comments?: Prisma.event_commentsCreateNestedManyWithoutUsersInput
   event_likes?: Prisma.event_likesCreateNestedManyWithoutUsersInput
@@ -722,7 +757,9 @@ export type usersUncheckedCreateWithoutAi_chat_sessionsInput = {
   year_of_study?: number | null
   created_at?: Date | string | null
   updated_at?: Date | string | null
+  is_verified?: boolean
   committee_applications?: Prisma.committee_applicationsUncheckedCreateNestedManyWithoutUsersInput
+  email_verification_tokens?: Prisma.email_verification_tokensUncheckedCreateNestedManyWithoutUsersInput
   event_analytics_logs?: Prisma.event_analytics_logsUncheckedCreateNestedManyWithoutUsersInput
   event_comments?: Prisma.event_commentsUncheckedCreateNestedManyWithoutUsersInput
   event_likes?: Prisma.event_likesUncheckedCreateNestedManyWithoutUsersInput
@@ -760,7 +797,9 @@ export type usersUpdateWithoutAi_chat_sessionsInput = {
   year_of_study?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   committee_applications?: Prisma.committee_applicationsUpdateManyWithoutUsersNestedInput
+  email_verification_tokens?: Prisma.email_verification_tokensUpdateManyWithoutUsersNestedInput
   event_analytics_logs?: Prisma.event_analytics_logsUpdateManyWithoutUsersNestedInput
   event_comments?: Prisma.event_commentsUpdateManyWithoutUsersNestedInput
   event_likes?: Prisma.event_likesUpdateManyWithoutUsersNestedInput
@@ -782,7 +821,9 @@ export type usersUncheckedUpdateWithoutAi_chat_sessionsInput = {
   year_of_study?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   committee_applications?: Prisma.committee_applicationsUncheckedUpdateManyWithoutUsersNestedInput
+  email_verification_tokens?: Prisma.email_verification_tokensUncheckedUpdateManyWithoutUsersNestedInput
   event_analytics_logs?: Prisma.event_analytics_logsUncheckedUpdateManyWithoutUsersNestedInput
   event_comments?: Prisma.event_commentsUncheckedUpdateManyWithoutUsersNestedInput
   event_likes?: Prisma.event_likesUncheckedUpdateManyWithoutUsersNestedInput
@@ -804,7 +845,9 @@ export type usersCreateWithoutCommittee_applicationsInput = {
   year_of_study?: number | null
   created_at?: Date | string | null
   updated_at?: Date | string | null
+  is_verified?: boolean
   ai_chat_sessions?: Prisma.ai_chat_sessionsCreateNestedManyWithoutUsersInput
+  email_verification_tokens?: Prisma.email_verification_tokensCreateNestedManyWithoutUsersInput
   event_analytics_logs?: Prisma.event_analytics_logsCreateNestedManyWithoutUsersInput
   event_comments?: Prisma.event_commentsCreateNestedManyWithoutUsersInput
   event_likes?: Prisma.event_likesCreateNestedManyWithoutUsersInput
@@ -826,7 +869,9 @@ export type usersUncheckedCreateWithoutCommittee_applicationsInput = {
   year_of_study?: number | null
   created_at?: Date | string | null
   updated_at?: Date | string | null
+  is_verified?: boolean
   ai_chat_sessions?: Prisma.ai_chat_sessionsUncheckedCreateNestedManyWithoutUsersInput
+  email_verification_tokens?: Prisma.email_verification_tokensUncheckedCreateNestedManyWithoutUsersInput
   event_analytics_logs?: Prisma.event_analytics_logsUncheckedCreateNestedManyWithoutUsersInput
   event_comments?: Prisma.event_commentsUncheckedCreateNestedManyWithoutUsersInput
   event_likes?: Prisma.event_likesUncheckedCreateNestedManyWithoutUsersInput
@@ -864,7 +909,9 @@ export type usersUpdateWithoutCommittee_applicationsInput = {
   year_of_study?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ai_chat_sessions?: Prisma.ai_chat_sessionsUpdateManyWithoutUsersNestedInput
+  email_verification_tokens?: Prisma.email_verification_tokensUpdateManyWithoutUsersNestedInput
   event_analytics_logs?: Prisma.event_analytics_logsUpdateManyWithoutUsersNestedInput
   event_comments?: Prisma.event_commentsUpdateManyWithoutUsersNestedInput
   event_likes?: Prisma.event_likesUpdateManyWithoutUsersNestedInput
@@ -886,7 +933,9 @@ export type usersUncheckedUpdateWithoutCommittee_applicationsInput = {
   year_of_study?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ai_chat_sessions?: Prisma.ai_chat_sessionsUncheckedUpdateManyWithoutUsersNestedInput
+  email_verification_tokens?: Prisma.email_verification_tokensUncheckedUpdateManyWithoutUsersNestedInput
   event_analytics_logs?: Prisma.event_analytics_logsUncheckedUpdateManyWithoutUsersNestedInput
   event_comments?: Prisma.event_commentsUncheckedUpdateManyWithoutUsersNestedInput
   event_likes?: Prisma.event_likesUncheckedUpdateManyWithoutUsersNestedInput
@@ -908,8 +957,10 @@ export type usersCreateWithoutEvent_analytics_logsInput = {
   year_of_study?: number | null
   created_at?: Date | string | null
   updated_at?: Date | string | null
+  is_verified?: boolean
   ai_chat_sessions?: Prisma.ai_chat_sessionsCreateNestedManyWithoutUsersInput
   committee_applications?: Prisma.committee_applicationsCreateNestedManyWithoutUsersInput
+  email_verification_tokens?: Prisma.email_verification_tokensCreateNestedManyWithoutUsersInput
   event_comments?: Prisma.event_commentsCreateNestedManyWithoutUsersInput
   event_likes?: Prisma.event_likesCreateNestedManyWithoutUsersInput
   event_wishlists?: Prisma.event_wishlistsCreateNestedManyWithoutUsersInput
@@ -930,8 +981,10 @@ export type usersUncheckedCreateWithoutEvent_analytics_logsInput = {
   year_of_study?: number | null
   created_at?: Date | string | null
   updated_at?: Date | string | null
+  is_verified?: boolean
   ai_chat_sessions?: Prisma.ai_chat_sessionsUncheckedCreateNestedManyWithoutUsersInput
   committee_applications?: Prisma.committee_applicationsUncheckedCreateNestedManyWithoutUsersInput
+  email_verification_tokens?: Prisma.email_verification_tokensUncheckedCreateNestedManyWithoutUsersInput
   event_comments?: Prisma.event_commentsUncheckedCreateNestedManyWithoutUsersInput
   event_likes?: Prisma.event_likesUncheckedCreateNestedManyWithoutUsersInput
   event_wishlists?: Prisma.event_wishlistsUncheckedCreateNestedManyWithoutUsersInput
@@ -968,8 +1021,10 @@ export type usersUpdateWithoutEvent_analytics_logsInput = {
   year_of_study?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ai_chat_sessions?: Prisma.ai_chat_sessionsUpdateManyWithoutUsersNestedInput
   committee_applications?: Prisma.committee_applicationsUpdateManyWithoutUsersNestedInput
+  email_verification_tokens?: Prisma.email_verification_tokensUpdateManyWithoutUsersNestedInput
   event_comments?: Prisma.event_commentsUpdateManyWithoutUsersNestedInput
   event_likes?: Prisma.event_likesUpdateManyWithoutUsersNestedInput
   event_wishlists?: Prisma.event_wishlistsUpdateManyWithoutUsersNestedInput
@@ -990,8 +1045,10 @@ export type usersUncheckedUpdateWithoutEvent_analytics_logsInput = {
   year_of_study?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ai_chat_sessions?: Prisma.ai_chat_sessionsUncheckedUpdateManyWithoutUsersNestedInput
   committee_applications?: Prisma.committee_applicationsUncheckedUpdateManyWithoutUsersNestedInput
+  email_verification_tokens?: Prisma.email_verification_tokensUncheckedUpdateManyWithoutUsersNestedInput
   event_comments?: Prisma.event_commentsUncheckedUpdateManyWithoutUsersNestedInput
   event_likes?: Prisma.event_likesUncheckedUpdateManyWithoutUsersNestedInput
   event_wishlists?: Prisma.event_wishlistsUncheckedUpdateManyWithoutUsersNestedInput
@@ -1012,8 +1069,10 @@ export type usersCreateWithoutEvent_commentsInput = {
   year_of_study?: number | null
   created_at?: Date | string | null
   updated_at?: Date | string | null
+  is_verified?: boolean
   ai_chat_sessions?: Prisma.ai_chat_sessionsCreateNestedManyWithoutUsersInput
   committee_applications?: Prisma.committee_applicationsCreateNestedManyWithoutUsersInput
+  email_verification_tokens?: Prisma.email_verification_tokensCreateNestedManyWithoutUsersInput
   event_analytics_logs?: Prisma.event_analytics_logsCreateNestedManyWithoutUsersInput
   event_likes?: Prisma.event_likesCreateNestedManyWithoutUsersInput
   event_wishlists?: Prisma.event_wishlistsCreateNestedManyWithoutUsersInput
@@ -1034,8 +1093,10 @@ export type usersUncheckedCreateWithoutEvent_commentsInput = {
   year_of_study?: number | null
   created_at?: Date | string | null
   updated_at?: Date | string | null
+  is_verified?: boolean
   ai_chat_sessions?: Prisma.ai_chat_sessionsUncheckedCreateNestedManyWithoutUsersInput
   committee_applications?: Prisma.committee_applicationsUncheckedCreateNestedManyWithoutUsersInput
+  email_verification_tokens?: Prisma.email_verification_tokensUncheckedCreateNestedManyWithoutUsersInput
   event_analytics_logs?: Prisma.event_analytics_logsUncheckedCreateNestedManyWithoutUsersInput
   event_likes?: Prisma.event_likesUncheckedCreateNestedManyWithoutUsersInput
   event_wishlists?: Prisma.event_wishlistsUncheckedCreateNestedManyWithoutUsersInput
@@ -1072,8 +1133,10 @@ export type usersUpdateWithoutEvent_commentsInput = {
   year_of_study?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ai_chat_sessions?: Prisma.ai_chat_sessionsUpdateManyWithoutUsersNestedInput
   committee_applications?: Prisma.committee_applicationsUpdateManyWithoutUsersNestedInput
+  email_verification_tokens?: Prisma.email_verification_tokensUpdateManyWithoutUsersNestedInput
   event_analytics_logs?: Prisma.event_analytics_logsUpdateManyWithoutUsersNestedInput
   event_likes?: Prisma.event_likesUpdateManyWithoutUsersNestedInput
   event_wishlists?: Prisma.event_wishlistsUpdateManyWithoutUsersNestedInput
@@ -1094,8 +1157,10 @@ export type usersUncheckedUpdateWithoutEvent_commentsInput = {
   year_of_study?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ai_chat_sessions?: Prisma.ai_chat_sessionsUncheckedUpdateManyWithoutUsersNestedInput
   committee_applications?: Prisma.committee_applicationsUncheckedUpdateManyWithoutUsersNestedInput
+  email_verification_tokens?: Prisma.email_verification_tokensUncheckedUpdateManyWithoutUsersNestedInput
   event_analytics_logs?: Prisma.event_analytics_logsUncheckedUpdateManyWithoutUsersNestedInput
   event_likes?: Prisma.event_likesUncheckedUpdateManyWithoutUsersNestedInput
   event_wishlists?: Prisma.event_wishlistsUncheckedUpdateManyWithoutUsersNestedInput
@@ -1116,8 +1181,10 @@ export type usersCreateWithoutEvent_likesInput = {
   year_of_study?: number | null
   created_at?: Date | string | null
   updated_at?: Date | string | null
+  is_verified?: boolean
   ai_chat_sessions?: Prisma.ai_chat_sessionsCreateNestedManyWithoutUsersInput
   committee_applications?: Prisma.committee_applicationsCreateNestedManyWithoutUsersInput
+  email_verification_tokens?: Prisma.email_verification_tokensCreateNestedManyWithoutUsersInput
   event_analytics_logs?: Prisma.event_analytics_logsCreateNestedManyWithoutUsersInput
   event_comments?: Prisma.event_commentsCreateNestedManyWithoutUsersInput
   event_wishlists?: Prisma.event_wishlistsCreateNestedManyWithoutUsersInput
@@ -1138,8 +1205,10 @@ export type usersUncheckedCreateWithoutEvent_likesInput = {
   year_of_study?: number | null
   created_at?: Date | string | null
   updated_at?: Date | string | null
+  is_verified?: boolean
   ai_chat_sessions?: Prisma.ai_chat_sessionsUncheckedCreateNestedManyWithoutUsersInput
   committee_applications?: Prisma.committee_applicationsUncheckedCreateNestedManyWithoutUsersInput
+  email_verification_tokens?: Prisma.email_verification_tokensUncheckedCreateNestedManyWithoutUsersInput
   event_analytics_logs?: Prisma.event_analytics_logsUncheckedCreateNestedManyWithoutUsersInput
   event_comments?: Prisma.event_commentsUncheckedCreateNestedManyWithoutUsersInput
   event_wishlists?: Prisma.event_wishlistsUncheckedCreateNestedManyWithoutUsersInput
@@ -1176,8 +1245,10 @@ export type usersUpdateWithoutEvent_likesInput = {
   year_of_study?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ai_chat_sessions?: Prisma.ai_chat_sessionsUpdateManyWithoutUsersNestedInput
   committee_applications?: Prisma.committee_applicationsUpdateManyWithoutUsersNestedInput
+  email_verification_tokens?: Prisma.email_verification_tokensUpdateManyWithoutUsersNestedInput
   event_analytics_logs?: Prisma.event_analytics_logsUpdateManyWithoutUsersNestedInput
   event_comments?: Prisma.event_commentsUpdateManyWithoutUsersNestedInput
   event_wishlists?: Prisma.event_wishlistsUpdateManyWithoutUsersNestedInput
@@ -1198,8 +1269,10 @@ export type usersUncheckedUpdateWithoutEvent_likesInput = {
   year_of_study?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ai_chat_sessions?: Prisma.ai_chat_sessionsUncheckedUpdateManyWithoutUsersNestedInput
   committee_applications?: Prisma.committee_applicationsUncheckedUpdateManyWithoutUsersNestedInput
+  email_verification_tokens?: Prisma.email_verification_tokensUncheckedUpdateManyWithoutUsersNestedInput
   event_analytics_logs?: Prisma.event_analytics_logsUncheckedUpdateManyWithoutUsersNestedInput
   event_comments?: Prisma.event_commentsUncheckedUpdateManyWithoutUsersNestedInput
   event_wishlists?: Prisma.event_wishlistsUncheckedUpdateManyWithoutUsersNestedInput
@@ -1220,8 +1293,10 @@ export type usersCreateWithoutEvent_wishlistsInput = {
   year_of_study?: number | null
   created_at?: Date | string | null
   updated_at?: Date | string | null
+  is_verified?: boolean
   ai_chat_sessions?: Prisma.ai_chat_sessionsCreateNestedManyWithoutUsersInput
   committee_applications?: Prisma.committee_applicationsCreateNestedManyWithoutUsersInput
+  email_verification_tokens?: Prisma.email_verification_tokensCreateNestedManyWithoutUsersInput
   event_analytics_logs?: Prisma.event_analytics_logsCreateNestedManyWithoutUsersInput
   event_comments?: Prisma.event_commentsCreateNestedManyWithoutUsersInput
   event_likes?: Prisma.event_likesCreateNestedManyWithoutUsersInput
@@ -1242,8 +1317,10 @@ export type usersUncheckedCreateWithoutEvent_wishlistsInput = {
   year_of_study?: number | null
   created_at?: Date | string | null
   updated_at?: Date | string | null
+  is_verified?: boolean
   ai_chat_sessions?: Prisma.ai_chat_sessionsUncheckedCreateNestedManyWithoutUsersInput
   committee_applications?: Prisma.committee_applicationsUncheckedCreateNestedManyWithoutUsersInput
+  email_verification_tokens?: Prisma.email_verification_tokensUncheckedCreateNestedManyWithoutUsersInput
   event_analytics_logs?: Prisma.event_analytics_logsUncheckedCreateNestedManyWithoutUsersInput
   event_comments?: Prisma.event_commentsUncheckedCreateNestedManyWithoutUsersInput
   event_likes?: Prisma.event_likesUncheckedCreateNestedManyWithoutUsersInput
@@ -1280,8 +1357,10 @@ export type usersUpdateWithoutEvent_wishlistsInput = {
   year_of_study?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ai_chat_sessions?: Prisma.ai_chat_sessionsUpdateManyWithoutUsersNestedInput
   committee_applications?: Prisma.committee_applicationsUpdateManyWithoutUsersNestedInput
+  email_verification_tokens?: Prisma.email_verification_tokensUpdateManyWithoutUsersNestedInput
   event_analytics_logs?: Prisma.event_analytics_logsUpdateManyWithoutUsersNestedInput
   event_comments?: Prisma.event_commentsUpdateManyWithoutUsersNestedInput
   event_likes?: Prisma.event_likesUpdateManyWithoutUsersNestedInput
@@ -1302,8 +1381,10 @@ export type usersUncheckedUpdateWithoutEvent_wishlistsInput = {
   year_of_study?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ai_chat_sessions?: Prisma.ai_chat_sessionsUncheckedUpdateManyWithoutUsersNestedInput
   committee_applications?: Prisma.committee_applicationsUncheckedUpdateManyWithoutUsersNestedInput
+  email_verification_tokens?: Prisma.email_verification_tokensUncheckedUpdateManyWithoutUsersNestedInput
   event_analytics_logs?: Prisma.event_analytics_logsUncheckedUpdateManyWithoutUsersNestedInput
   event_comments?: Prisma.event_commentsUncheckedUpdateManyWithoutUsersNestedInput
   event_likes?: Prisma.event_likesUncheckedUpdateManyWithoutUsersNestedInput
@@ -1324,8 +1405,10 @@ export type usersCreateWithoutEventsInput = {
   year_of_study?: number | null
   created_at?: Date | string | null
   updated_at?: Date | string | null
+  is_verified?: boolean
   ai_chat_sessions?: Prisma.ai_chat_sessionsCreateNestedManyWithoutUsersInput
   committee_applications?: Prisma.committee_applicationsCreateNestedManyWithoutUsersInput
+  email_verification_tokens?: Prisma.email_verification_tokensCreateNestedManyWithoutUsersInput
   event_analytics_logs?: Prisma.event_analytics_logsCreateNestedManyWithoutUsersInput
   event_comments?: Prisma.event_commentsCreateNestedManyWithoutUsersInput
   event_likes?: Prisma.event_likesCreateNestedManyWithoutUsersInput
@@ -1346,8 +1429,10 @@ export type usersUncheckedCreateWithoutEventsInput = {
   year_of_study?: number | null
   created_at?: Date | string | null
   updated_at?: Date | string | null
+  is_verified?: boolean
   ai_chat_sessions?: Prisma.ai_chat_sessionsUncheckedCreateNestedManyWithoutUsersInput
   committee_applications?: Prisma.committee_applicationsUncheckedCreateNestedManyWithoutUsersInput
+  email_verification_tokens?: Prisma.email_verification_tokensUncheckedCreateNestedManyWithoutUsersInput
   event_analytics_logs?: Prisma.event_analytics_logsUncheckedCreateNestedManyWithoutUsersInput
   event_comments?: Prisma.event_commentsUncheckedCreateNestedManyWithoutUsersInput
   event_likes?: Prisma.event_likesUncheckedCreateNestedManyWithoutUsersInput
@@ -1384,8 +1469,10 @@ export type usersUpdateWithoutEventsInput = {
   year_of_study?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ai_chat_sessions?: Prisma.ai_chat_sessionsUpdateManyWithoutUsersNestedInput
   committee_applications?: Prisma.committee_applicationsUpdateManyWithoutUsersNestedInput
+  email_verification_tokens?: Prisma.email_verification_tokensUpdateManyWithoutUsersNestedInput
   event_analytics_logs?: Prisma.event_analytics_logsUpdateManyWithoutUsersNestedInput
   event_comments?: Prisma.event_commentsUpdateManyWithoutUsersNestedInput
   event_likes?: Prisma.event_likesUpdateManyWithoutUsersNestedInput
@@ -1406,8 +1493,10 @@ export type usersUncheckedUpdateWithoutEventsInput = {
   year_of_study?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ai_chat_sessions?: Prisma.ai_chat_sessionsUncheckedUpdateManyWithoutUsersNestedInput
   committee_applications?: Prisma.committee_applicationsUncheckedUpdateManyWithoutUsersNestedInput
+  email_verification_tokens?: Prisma.email_verification_tokensUncheckedUpdateManyWithoutUsersNestedInput
   event_analytics_logs?: Prisma.event_analytics_logsUncheckedUpdateManyWithoutUsersNestedInput
   event_comments?: Prisma.event_commentsUncheckedUpdateManyWithoutUsersNestedInput
   event_likes?: Prisma.event_likesUncheckedUpdateManyWithoutUsersNestedInput
@@ -1428,8 +1517,10 @@ export type usersCreateWithoutStudent_interestsInput = {
   year_of_study?: number | null
   created_at?: Date | string | null
   updated_at?: Date | string | null
+  is_verified?: boolean
   ai_chat_sessions?: Prisma.ai_chat_sessionsCreateNestedManyWithoutUsersInput
   committee_applications?: Prisma.committee_applicationsCreateNestedManyWithoutUsersInput
+  email_verification_tokens?: Prisma.email_verification_tokensCreateNestedManyWithoutUsersInput
   event_analytics_logs?: Prisma.event_analytics_logsCreateNestedManyWithoutUsersInput
   event_comments?: Prisma.event_commentsCreateNestedManyWithoutUsersInput
   event_likes?: Prisma.event_likesCreateNestedManyWithoutUsersInput
@@ -1450,8 +1541,10 @@ export type usersUncheckedCreateWithoutStudent_interestsInput = {
   year_of_study?: number | null
   created_at?: Date | string | null
   updated_at?: Date | string | null
+  is_verified?: boolean
   ai_chat_sessions?: Prisma.ai_chat_sessionsUncheckedCreateNestedManyWithoutUsersInput
   committee_applications?: Prisma.committee_applicationsUncheckedCreateNestedManyWithoutUsersInput
+  email_verification_tokens?: Prisma.email_verification_tokensUncheckedCreateNestedManyWithoutUsersInput
   event_analytics_logs?: Prisma.event_analytics_logsUncheckedCreateNestedManyWithoutUsersInput
   event_comments?: Prisma.event_commentsUncheckedCreateNestedManyWithoutUsersInput
   event_likes?: Prisma.event_likesUncheckedCreateNestedManyWithoutUsersInput
@@ -1488,8 +1581,10 @@ export type usersUpdateWithoutStudent_interestsInput = {
   year_of_study?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ai_chat_sessions?: Prisma.ai_chat_sessionsUpdateManyWithoutUsersNestedInput
   committee_applications?: Prisma.committee_applicationsUpdateManyWithoutUsersNestedInput
+  email_verification_tokens?: Prisma.email_verification_tokensUpdateManyWithoutUsersNestedInput
   event_analytics_logs?: Prisma.event_analytics_logsUpdateManyWithoutUsersNestedInput
   event_comments?: Prisma.event_commentsUpdateManyWithoutUsersNestedInput
   event_likes?: Prisma.event_likesUpdateManyWithoutUsersNestedInput
@@ -1510,8 +1605,10 @@ export type usersUncheckedUpdateWithoutStudent_interestsInput = {
   year_of_study?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ai_chat_sessions?: Prisma.ai_chat_sessionsUncheckedUpdateManyWithoutUsersNestedInput
   committee_applications?: Prisma.committee_applicationsUncheckedUpdateManyWithoutUsersNestedInput
+  email_verification_tokens?: Prisma.email_verification_tokensUncheckedUpdateManyWithoutUsersNestedInput
   event_analytics_logs?: Prisma.event_analytics_logsUncheckedUpdateManyWithoutUsersNestedInput
   event_comments?: Prisma.event_commentsUncheckedUpdateManyWithoutUsersNestedInput
   event_likes?: Prisma.event_likesUncheckedUpdateManyWithoutUsersNestedInput
@@ -1532,8 +1629,10 @@ export type usersCreateWithoutStudent_profilesInput = {
   year_of_study?: number | null
   created_at?: Date | string | null
   updated_at?: Date | string | null
+  is_verified?: boolean
   ai_chat_sessions?: Prisma.ai_chat_sessionsCreateNestedManyWithoutUsersInput
   committee_applications?: Prisma.committee_applicationsCreateNestedManyWithoutUsersInput
+  email_verification_tokens?: Prisma.email_verification_tokensCreateNestedManyWithoutUsersInput
   event_analytics_logs?: Prisma.event_analytics_logsCreateNestedManyWithoutUsersInput
   event_comments?: Prisma.event_commentsCreateNestedManyWithoutUsersInput
   event_likes?: Prisma.event_likesCreateNestedManyWithoutUsersInput
@@ -1554,8 +1653,10 @@ export type usersUncheckedCreateWithoutStudent_profilesInput = {
   year_of_study?: number | null
   created_at?: Date | string | null
   updated_at?: Date | string | null
+  is_verified?: boolean
   ai_chat_sessions?: Prisma.ai_chat_sessionsUncheckedCreateNestedManyWithoutUsersInput
   committee_applications?: Prisma.committee_applicationsUncheckedCreateNestedManyWithoutUsersInput
+  email_verification_tokens?: Prisma.email_verification_tokensUncheckedCreateNestedManyWithoutUsersInput
   event_analytics_logs?: Prisma.event_analytics_logsUncheckedCreateNestedManyWithoutUsersInput
   event_comments?: Prisma.event_commentsUncheckedCreateNestedManyWithoutUsersInput
   event_likes?: Prisma.event_likesUncheckedCreateNestedManyWithoutUsersInput
@@ -1592,8 +1693,10 @@ export type usersUpdateWithoutStudent_profilesInput = {
   year_of_study?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ai_chat_sessions?: Prisma.ai_chat_sessionsUpdateManyWithoutUsersNestedInput
   committee_applications?: Prisma.committee_applicationsUpdateManyWithoutUsersNestedInput
+  email_verification_tokens?: Prisma.email_verification_tokensUpdateManyWithoutUsersNestedInput
   event_analytics_logs?: Prisma.event_analytics_logsUpdateManyWithoutUsersNestedInput
   event_comments?: Prisma.event_commentsUpdateManyWithoutUsersNestedInput
   event_likes?: Prisma.event_likesUpdateManyWithoutUsersNestedInput
@@ -1614,8 +1717,10 @@ export type usersUncheckedUpdateWithoutStudent_profilesInput = {
   year_of_study?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   ai_chat_sessions?: Prisma.ai_chat_sessionsUncheckedUpdateManyWithoutUsersNestedInput
   committee_applications?: Prisma.committee_applicationsUncheckedUpdateManyWithoutUsersNestedInput
+  email_verification_tokens?: Prisma.email_verification_tokensUncheckedUpdateManyWithoutUsersNestedInput
   event_analytics_logs?: Prisma.event_analytics_logsUncheckedUpdateManyWithoutUsersNestedInput
   event_comments?: Prisma.event_commentsUncheckedUpdateManyWithoutUsersNestedInput
   event_likes?: Prisma.event_likesUncheckedUpdateManyWithoutUsersNestedInput
@@ -1729,6 +1834,110 @@ export type usersUncheckedUpdateWithoutEmail_verification_tokensInput = {
   student_profiles?: Prisma.student_profilesUncheckedUpdateOneWithoutUsersNestedInput
 }
 
+export type usersCreateWithoutEmail_verification_tokensInput = {
+  user_id?: string
+  email: string
+  password_hash: string
+  full_name: string
+  role?: $Enums.user_role | null
+  faculty?: string | null
+  year_of_study?: number | null
+  created_at?: Date | string | null
+  updated_at?: Date | string | null
+  is_verified?: boolean
+  ai_chat_sessions?: Prisma.ai_chat_sessionsCreateNestedManyWithoutUsersInput
+  committee_applications?: Prisma.committee_applicationsCreateNestedManyWithoutUsersInput
+  event_analytics_logs?: Prisma.event_analytics_logsCreateNestedManyWithoutUsersInput
+  event_comments?: Prisma.event_commentsCreateNestedManyWithoutUsersInput
+  event_likes?: Prisma.event_likesCreateNestedManyWithoutUsersInput
+  event_wishlists?: Prisma.event_wishlistsCreateNestedManyWithoutUsersInput
+  events?: Prisma.eventsCreateNestedManyWithoutUsersInput
+  student_interests?: Prisma.student_interestsCreateNestedManyWithoutUsersInput
+  student_profiles?: Prisma.student_profilesCreateNestedOneWithoutUsersInput
+}
+
+export type usersUncheckedCreateWithoutEmail_verification_tokensInput = {
+  user_id?: string
+  email: string
+  password_hash: string
+  full_name: string
+  role?: $Enums.user_role | null
+  faculty?: string | null
+  year_of_study?: number | null
+  created_at?: Date | string | null
+  updated_at?: Date | string | null
+  is_verified?: boolean
+  ai_chat_sessions?: Prisma.ai_chat_sessionsUncheckedCreateNestedManyWithoutUsersInput
+  committee_applications?: Prisma.committee_applicationsUncheckedCreateNestedManyWithoutUsersInput
+  event_analytics_logs?: Prisma.event_analytics_logsUncheckedCreateNestedManyWithoutUsersInput
+  event_comments?: Prisma.event_commentsUncheckedCreateNestedManyWithoutUsersInput
+  event_likes?: Prisma.event_likesUncheckedCreateNestedManyWithoutUsersInput
+  event_wishlists?: Prisma.event_wishlistsUncheckedCreateNestedManyWithoutUsersInput
+  events?: Prisma.eventsUncheckedCreateNestedManyWithoutUsersInput
+  student_interests?: Prisma.student_interestsUncheckedCreateNestedManyWithoutUsersInput
+  student_profiles?: Prisma.student_profilesUncheckedCreateNestedOneWithoutUsersInput
+}
+
+export type usersCreateOrConnectWithoutEmail_verification_tokensInput = {
+  where: Prisma.usersWhereUniqueInput
+  create: Prisma.XOR<Prisma.usersCreateWithoutEmail_verification_tokensInput, Prisma.usersUncheckedCreateWithoutEmail_verification_tokensInput>
+}
+
+export type usersUpsertWithoutEmail_verification_tokensInput = {
+  update: Prisma.XOR<Prisma.usersUpdateWithoutEmail_verification_tokensInput, Prisma.usersUncheckedUpdateWithoutEmail_verification_tokensInput>
+  create: Prisma.XOR<Prisma.usersCreateWithoutEmail_verification_tokensInput, Prisma.usersUncheckedCreateWithoutEmail_verification_tokensInput>
+  where?: Prisma.usersWhereInput
+}
+
+export type usersUpdateToOneWithWhereWithoutEmail_verification_tokensInput = {
+  where?: Prisma.usersWhereInput
+  data: Prisma.XOR<Prisma.usersUpdateWithoutEmail_verification_tokensInput, Prisma.usersUncheckedUpdateWithoutEmail_verification_tokensInput>
+}
+
+export type usersUpdateWithoutEmail_verification_tokensInput = {
+  user_id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+  faculty?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  year_of_study?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ai_chat_sessions?: Prisma.ai_chat_sessionsUpdateManyWithoutUsersNestedInput
+  committee_applications?: Prisma.committee_applicationsUpdateManyWithoutUsersNestedInput
+  event_analytics_logs?: Prisma.event_analytics_logsUpdateManyWithoutUsersNestedInput
+  event_comments?: Prisma.event_commentsUpdateManyWithoutUsersNestedInput
+  event_likes?: Prisma.event_likesUpdateManyWithoutUsersNestedInput
+  event_wishlists?: Prisma.event_wishlistsUpdateManyWithoutUsersNestedInput
+  events?: Prisma.eventsUpdateManyWithoutUsersNestedInput
+  student_interests?: Prisma.student_interestsUpdateManyWithoutUsersNestedInput
+  student_profiles?: Prisma.student_profilesUpdateOneWithoutUsersNestedInput
+}
+
+export type usersUncheckedUpdateWithoutEmail_verification_tokensInput = {
+  user_id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  full_name?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.NullableEnumuser_roleFieldUpdateOperationsInput | $Enums.user_role | null
+  faculty?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  year_of_study?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  created_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  updated_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  ai_chat_sessions?: Prisma.ai_chat_sessionsUncheckedUpdateManyWithoutUsersNestedInput
+  committee_applications?: Prisma.committee_applicationsUncheckedUpdateManyWithoutUsersNestedInput
+  event_analytics_logs?: Prisma.event_analytics_logsUncheckedUpdateManyWithoutUsersNestedInput
+  event_comments?: Prisma.event_commentsUncheckedUpdateManyWithoutUsersNestedInput
+  event_likes?: Prisma.event_likesUncheckedUpdateManyWithoutUsersNestedInput
+  event_wishlists?: Prisma.event_wishlistsUncheckedUpdateManyWithoutUsersNestedInput
+  events?: Prisma.eventsUncheckedUpdateManyWithoutUsersNestedInput
+  student_interests?: Prisma.student_interestsUncheckedUpdateManyWithoutUsersNestedInput
+  student_profiles?: Prisma.student_profilesUncheckedUpdateOneWithoutUsersNestedInput
+}
+
 
 /**
  * Count Type UsersCountOutputType
@@ -1737,6 +1946,7 @@ export type usersUncheckedUpdateWithoutEmail_verification_tokensInput = {
 export type UsersCountOutputType = {
   ai_chat_sessions: number
   committee_applications: number
+  email_verification_tokens: number
   event_analytics_logs: number
   event_comments: number
   event_likes: number
@@ -1749,6 +1959,7 @@ export type UsersCountOutputType = {
 export type UsersCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   ai_chat_sessions?: boolean | UsersCountOutputTypeCountAi_chat_sessionsArgs
   committee_applications?: boolean | UsersCountOutputTypeCountCommittee_applicationsArgs
+  email_verification_tokens?: boolean | UsersCountOutputTypeCountEmail_verification_tokensArgs
   event_analytics_logs?: boolean | UsersCountOutputTypeCountEvent_analytics_logsArgs
   event_comments?: boolean | UsersCountOutputTypeCountEvent_commentsArgs
   event_likes?: boolean | UsersCountOutputTypeCountEvent_likesArgs
@@ -1780,6 +1991,13 @@ export type UsersCountOutputTypeCountAi_chat_sessionsArgs<ExtArgs extends runtim
  */
 export type UsersCountOutputTypeCountCommittee_applicationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.committee_applicationsWhereInput
+}
+
+/**
+ * UsersCountOutputType without action
+ */
+export type UsersCountOutputTypeCountEmail_verification_tokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.email_verification_tokensWhereInput
 }
 
 /**
@@ -1843,8 +2061,10 @@ export type usersSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   year_of_study?: boolean
   created_at?: boolean
   updated_at?: boolean
+  is_verified?: boolean
   ai_chat_sessions?: boolean | Prisma.users$ai_chat_sessionsArgs<ExtArgs>
   committee_applications?: boolean | Prisma.users$committee_applicationsArgs<ExtArgs>
+  email_verification_tokens?: boolean | Prisma.users$email_verification_tokensArgs<ExtArgs>
   event_analytics_logs?: boolean | Prisma.users$event_analytics_logsArgs<ExtArgs>
   event_comments?: boolean | Prisma.users$event_commentsArgs<ExtArgs>
   event_likes?: boolean | Prisma.users$event_likesArgs<ExtArgs>
@@ -1867,6 +2087,7 @@ export type usersSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   year_of_study?: boolean
   created_at?: boolean
   updated_at?: boolean
+  is_verified?: boolean
 }, ExtArgs["result"]["users"]>
 
 export type usersSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1880,6 +2101,7 @@ export type usersSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   year_of_study?: boolean
   created_at?: boolean
   updated_at?: boolean
+  is_verified?: boolean
 }, ExtArgs["result"]["users"]>
 
 export type usersSelectScalar = {
@@ -1893,12 +2115,14 @@ export type usersSelectScalar = {
   year_of_study?: boolean
   created_at?: boolean
   updated_at?: boolean
+  is_verified?: boolean
 }
 
 export type usersOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"user_id" | "email" | "is_verified" | "password_hash" | "full_name" | "role" | "faculty" | "year_of_study" | "created_at" | "updated_at", ExtArgs["result"]["users"]>
 export type usersInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   ai_chat_sessions?: boolean | Prisma.users$ai_chat_sessionsArgs<ExtArgs>
   committee_applications?: boolean | Prisma.users$committee_applicationsArgs<ExtArgs>
+  email_verification_tokens?: boolean | Prisma.users$email_verification_tokensArgs<ExtArgs>
   event_analytics_logs?: boolean | Prisma.users$event_analytics_logsArgs<ExtArgs>
   event_comments?: boolean | Prisma.users$event_commentsArgs<ExtArgs>
   event_likes?: boolean | Prisma.users$event_likesArgs<ExtArgs>
@@ -1917,6 +2141,7 @@ export type $usersPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   objects: {
     ai_chat_sessions: Prisma.$ai_chat_sessionsPayload<ExtArgs>[]
     committee_applications: Prisma.$committee_applicationsPayload<ExtArgs>[]
+    email_verification_tokens: Prisma.$email_verification_tokensPayload<ExtArgs>[]
     event_analytics_logs: Prisma.$event_analytics_logsPayload<ExtArgs>[]
     event_comments: Prisma.$event_commentsPayload<ExtArgs>[]
     event_likes: Prisma.$event_likesPayload<ExtArgs>[]
@@ -1937,6 +2162,7 @@ export type $usersPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     year_of_study: number | null
     created_at: Date | null
     updated_at: Date | null
+    is_verified: boolean
   }, ExtArgs["result"]["users"]>
   composites: {}
 }
@@ -2333,6 +2559,7 @@ export interface Prisma__usersClient<T, Null = never, ExtArgs extends runtime.Ty
   readonly [Symbol.toStringTag]: "PrismaPromise"
   ai_chat_sessions<T extends Prisma.users$ai_chat_sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.users$ai_chat_sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ai_chat_sessionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   committee_applications<T extends Prisma.users$committee_applicationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.users$committee_applicationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$committee_applicationsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  email_verification_tokens<T extends Prisma.users$email_verification_tokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.users$email_verification_tokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$email_verification_tokensPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   event_analytics_logs<T extends Prisma.users$event_analytics_logsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.users$event_analytics_logsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$event_analytics_logsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   event_comments<T extends Prisma.users$event_commentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.users$event_commentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$event_commentsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   event_likes<T extends Prisma.users$event_likesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.users$event_likesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$event_likesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2380,6 +2607,7 @@ export interface usersFieldRefs {
   readonly year_of_study: Prisma.FieldRef<"users", 'Int'>
   readonly created_at: Prisma.FieldRef<"users", 'DateTime'>
   readonly updated_at: Prisma.FieldRef<"users", 'DateTime'>
+  readonly is_verified: Prisma.FieldRef<"users", 'Boolean'>
 }
     
 
@@ -2818,6 +3046,30 @@ export type users$committee_applicationsArgs<ExtArgs extends runtime.Types.Exten
   take?: number
   skip?: number
   distinct?: Prisma.Committee_applicationsScalarFieldEnum | Prisma.Committee_applicationsScalarFieldEnum[]
+}
+
+/**
+ * users.email_verification_tokens
+ */
+export type users$email_verification_tokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the email_verification_tokens
+   */
+  select?: Prisma.email_verification_tokensSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the email_verification_tokens
+   */
+  omit?: Prisma.email_verification_tokensOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.email_verification_tokensInclude<ExtArgs> | null
+  where?: Prisma.email_verification_tokensWhereInput
+  orderBy?: Prisma.email_verification_tokensOrderByWithRelationInput | Prisma.email_verification_tokensOrderByWithRelationInput[]
+  cursor?: Prisma.email_verification_tokensWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.Email_verification_tokensScalarFieldEnum | Prisma.Email_verification_tokensScalarFieldEnum[]
 }
 
 /**

@@ -39,10 +39,23 @@ class _LoginScreenState extends State<LoginScreen> {
         'password': _passwordController.text,
       });
 
-      await TokenStorage.save(res.data['accessToken'] as String);
+      final token = res.data['accessToken'] as String;
+      await TokenStorage.save(token);
+
+      bool completedOnboarding = true;
+      try {
+        final onboardingRes = await dio.get(
+          '/interests',
+          options: Options(headers: {'Authorization': 'Bearer $token'}),
+        );
+        completedOnboarding =
+            onboardingRes.data['hasCompletedOnboarding'] == true;
+      } catch (_) {
+        // Fallback to /home if onboarding check fails
+      }
 
       if (!mounted) return;
-      context.go('/home');
+      context.go(completedOnboarding ? '/home' : '/onboarding');
     } on DioException catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(

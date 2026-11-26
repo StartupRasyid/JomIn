@@ -10,6 +10,7 @@ import { DatabaseController } from './database/database.controller.js';
 import { AuthModule } from './auth/auth.module.js';
 import { CommonModule } from './common/common.module.js';
 import { ScheduleModule } from '@nestjs/schedule';
+import { InterestsModule } from './interests/interests.module.js';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { ScheduleModule } from '@nestjs/schedule';
     CommonModule,
     PrismaModule,
     AuthModule,
+    InterestsModule,
     ThrottlerModule.forRoot([
       {
         ttl: 60000,

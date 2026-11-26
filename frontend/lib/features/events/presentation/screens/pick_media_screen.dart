@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../data/media_picker_service.dart';
 
 class PickMediaScreen extends StatefulWidget {
@@ -116,18 +117,12 @@ class _PickMediaScreenState extends State<PickMediaScreen> {
           ),
           const SizedBox(height: 12),
 
-          // Next Step Button (hands off to SS-84 Event Form)
+          // Next Step Button (opens EventInfoFormScreen)
           FilledButton.icon(
             onPressed: _selectedMedia == null
                 ? null
                 : () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          'Selected: ${_selectedMedia!.file.name} (${_selectedMedia!.type.name})',
-                        ),
-                      ),
-                    );
+                    context.push('/create-event', extra: _selectedMedia);
                   },
             icon: const Icon(Icons.arrow_forward),
             label: const Text('Continue to Event Details'),

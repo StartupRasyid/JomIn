@@ -187,26 +187,26 @@ model student_profiles {
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model users {
-  user_id                   String                      @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
-  email                     String                      @unique @db.VarChar(255)
-  password_hash             String                      @db.VarChar(255)
-  full_name                 String                      @db.VarChar(100)
-  role                      user_role?                  @default(student)
-  faculty                   String?                     @db.VarChar(100)
-  year_of_study             Int?
-  created_at                DateTime?                   @default(now()) @db.Timestamptz(6)
-  updated_at                DateTime?                   @default(now()) @db.Timestamptz(6)
-  is_verified               Boolean                     @default(false)
-  ai_chat_sessions          ai_chat_sessions[]
-  committee_applications    committee_applications[]
+  user_id                String                   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  email                  String                   @unique @db.VarChar(255)
+  is_verified            Boolean                  @default(false)
+  password_hash          String                   @db.VarChar(255)
+  full_name              String                   @db.VarChar(100)
+  role                   user_role?               @default(student)
+  faculty                String?                  @db.VarChar(100)
+  year_of_study          Int?
+  created_at             DateTime?                @default(now()) @db.Timestamptz(6)
+  updated_at             DateTime?                @default(now()) @db.Timestamptz(6)
+  ai_chat_sessions       ai_chat_sessions[]
+  committee_applications committee_applications[]
+  event_analytics_logs   event_analytics_logs[]
+  event_comments         event_comments[]
+  event_likes            event_likes[]
+  event_wishlists        event_wishlists[]
+  events                 events[]
+  student_interests      student_interests[]
+  student_profiles       student_profiles?
   email_verification_tokens email_verification_tokens[]
-  event_analytics_logs      event_analytics_logs[]
-  event_comments            event_comments[]
-  event_likes               event_likes[]
-  event_wishlists           event_wishlists[]
-  events                    events[]
-  student_interests         student_interests[]
-  student_profiles          student_profiles?
 }
 
 model email_verification_tokens {
@@ -215,7 +215,8 @@ model email_verification_tokens {
   token_hash String   @unique @db.VarChar(255)
   expires_at DateTime @db.Timestamptz(6)
   created_at DateTime @default(now()) @db.Timestamptz(6)
-  users      users    @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
+
+  users users @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
 
   @@index([user_id])
 }

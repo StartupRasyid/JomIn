@@ -244,6 +244,7 @@ export type Student_profilesScalarFieldEnum = (typeof Student_profilesScalarFiel
 export const UsersScalarFieldEnum = {
   user_id: 'user_id',
   email: 'email',
+  is_verified: 'is_verified',
   password_hash: 'password_hash',
   full_name: 'full_name',
   role: 'role',

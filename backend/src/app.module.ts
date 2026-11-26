@@ -8,6 +8,8 @@ import { AppService } from './app.service.js';
 import { PrismaModule } from './prisma/prisma.module.js';
 import { DatabaseController } from './database/database.controller.js';
 import { AuthModule } from './auth/auth.module.js';
+import { CommonModule } from './common/common.module.js';
+import { ScheduleModule } from '@nestjs/schedule';
 import { InterestsModule } from './interests/interests.module.js';
 
 @Module({
@@ -15,6 +17,8 @@ import { InterestsModule } from './interests/interests.module.js';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    ScheduleModule.forRoot(),
+    CommonModule,
     PrismaModule,
     AuthModule,
     InterestsModule,

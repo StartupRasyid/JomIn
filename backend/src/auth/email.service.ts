@@ -19,11 +19,39 @@ export class EmailService {
     });
   }
 
-  async sendVerificationEmail(email: string, token: string) {
-    const frontendUrl = this.configService.get<string>('FRONTEND_URL');
+  private getFrontendUrl(requestOrigin?: string) {
+    const configuredUrl = this.configService.get<string>(
+      'FRONTEND_URL',
+      'http://localhost:8080',
+    );
+    const configured = new URL(configuredUrl);
 
+    if (requestOrigin) {
+      try {
+        const origin = new URL(requestOrigin);
+        const sameHost = origin.hostname === configured.hostname ||
+          (['localhost', '127.0.0.1'].includes(origin.hostname) &&
+            ['localhost', '127.0.0.1'].includes(configured.hostname));
+
+        // Keep the configured app host, but honor Flutter's dynamic dev port.
+        if (sameHost && origin.protocol === configured.protocol) {
+          return origin.origin;
+        }
+      } catch {
+        // Ignore malformed Origin values and use the configured frontend URL.
+      }
+    }
+
+    return configured.origin;
+  }
+
+  async sendVerificationEmail(email: string, token: string, requestOrigin?: string) {
+    const frontendUrl = this.getFrontendUrl(requestOrigin);
+
+    // Flutter web uses hash-based routes by default; keep the token inside
+    // the hash so GoRouter receives it as a query parameter.
     const verificationUrl =
-      `${frontendUrl}/verify-email?token=${encodeURIComponent(token)}`;
+      `${frontendUrl}/#/verify-email?token=${encodeURIComponent(token)}`;
 
     await this.transporter.sendMail({
       from: this.configService.get<string>('EMAIL_FROM'),

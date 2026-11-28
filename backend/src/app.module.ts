@@ -11,6 +11,7 @@ import { AuthModule } from './auth/auth.module.js';
 import { CommonModule } from './common/common.module.js';
 import { ScheduleModule } from '@nestjs/schedule';
 import { InterestsModule } from './interests/interests.module.js';
+import { EventsModule } from './events/events.module.js';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { InterestsModule } from './interests/interests.module.js';
     PrismaModule,
     AuthModule,
     InterestsModule,
+    EventsModule,
     ThrottlerModule.forRoot([
       {
         ttl: 60000,

@@ -45,10 +45,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       });
 
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Account created! Please log in.')),
-      );
-      context.go('/login');
+      context.go('/verify-email', extra: _emailController.text.trim());
     } on DioException catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(

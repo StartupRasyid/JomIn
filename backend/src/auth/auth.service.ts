@@ -34,7 +34,7 @@ export class AuthService {
   }
 
   // Register a new user
-  async register(dto: RegisterDto) {
+  async register(dto: RegisterDto, frontendOrigin?: string) {
     const email = dto.email.trim().toLowerCase();
 
     const existing = await this.prisma.users.findUnique({
@@ -98,7 +98,7 @@ export class AuthService {
     });
 
     // Send verification email
-    await this.emailService.sendVerificationEmail(email, token);
+    await this.emailService.sendVerificationEmail(email, token, frontendOrigin);
 
     return {
       message:
@@ -152,7 +152,7 @@ export class AuthService {
   }
 
   // Resend email verification link
-  async resendVerificationEmail(emailInput: string) {
+  async resendVerificationEmail(emailInput: string, frontendOrigin?: string) {
     const email = emailInput.trim().toLowerCase();
 
     const user = await this.prisma.users.findUnique({
@@ -187,7 +187,7 @@ export class AuthService {
     });
 
     // Send verification email
-    await this.emailService.sendVerificationEmail(email, token);
+    await this.emailService.sendVerificationEmail(email, token, frontendOrigin);
 
     return {
       message:

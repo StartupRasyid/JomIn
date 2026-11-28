@@ -5,6 +5,7 @@ import {
   Post,
   Get,
   HttpCode,
+  Headers,
   UseGuards,
 } from '@nestjs/common';
 
@@ -28,8 +29,8 @@ export class AuthController {
 
   // Register a new account
   @Post('register')
-  register(@Body() dto: RegisterDto) {
-    return this.authService.register(dto);
+  register(@Body() dto: RegisterDto, @Headers('origin') origin?: string) {
+    return this.authService.register(dto, origin);
   }
 
   // Verify email address
@@ -41,8 +42,11 @@ export class AuthController {
   // Resend verification email
   @Post('resend-verification')
   @Throttle({ default: { limit: 3, ttl: 60000 } })
-  resendVerification(@Body() dto: ResendVerificationDto) {
-    return this.authService.resendVerificationEmail(dto.email);
+  resendVerification(
+    @Body() dto: ResendVerificationDto,
+    @Headers('origin') origin?: string,
+  ) {
+    return this.authService.resendVerificationEmail(dto.email, origin);
   }
 
   // Login
